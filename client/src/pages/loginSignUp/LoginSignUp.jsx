@@ -15,7 +15,7 @@ const LoginSignUp = () => {
   return (
 
     // THIS IS THE LOGIN SIGNUP SCREEN //
-    <div className='flex mx-auto min-h-screen'>
+    <div className='flex mx-auto '>
 
         {/* THIS IS THE LOGIN SIGNUP FORM AREA */}
         <div className='mx-auto min-w-[100%] lg:min-w-[40%] px-[3%] py-[2%] md:py-[6%]'>
@@ -42,7 +42,7 @@ const LoginSignUp = () => {
         </div>
 
         {/* THIS IS THE IMAGE AREA OF THE LOGINSIGNUP SCREEN */}
-        <div className='mainImage mx-auto hidden md:flex items-center min-w-[60%] px-[3%]'>
+        <div className='mainImage mx-auto hidden md:flex items-center min-w-[60%] px-[3%] min-h-screen resize-y'>
           <img className='mx-auto bg-white rounded-3xl ' src='https://www.pngmart.com/files/16/Speech-Chat-Icon-Transparent-PNG.png'/>
         </div>
     </div>

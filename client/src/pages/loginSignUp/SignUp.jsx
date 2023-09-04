@@ -3,11 +3,13 @@ import * as yup from 'yup';
 import { Formik } from 'formik';
 
 const SignUp = () => {
-   const  initialValues={ email: '', password: '',confirmPassword:'' }
-   const getCharacterValidationError = (str: string) => {
+   const  initialValues={ name:'',email: '', password: '',confirmPassword:''}
+   const getCharacterValidationError = (str) => {
     return `Your password must have at least 1 ${str} character`;
    };
    const schema = yup.object().shape({
+    name: yup.string()
+        .required("You must enter a name"),
     email: yup.string()
         .email()
         .required("Please enter an email"),
@@ -23,7 +25,7 @@ const SignUp = () => {
         .required("Please re-type your password")
         // use oneOf to match one of the values inside the array.
         // use "ref" to get the value of passwrod.
-        .oneOf([yup.ref("password")], "Passwords does not match"),
+        .oneOf([yup.ref("password")], "Passwords does not match")
   });
 
   return (
@@ -43,7 +45,20 @@ const SignUp = () => {
                 isSubmitting,
                 /* and other goodies */
             }) => (
-                <form onSubmit={handleSubmit} className='flex flex-col items-start'>
+                <form onSubmit={handleSubmit} className='flex flex-wrap justify-between'>
+                    <div className='flex flex-col mt-[5%] min-w-[100%]'>
+                        <p className='font-serif m-[1%]  text-xl'>Name :</p>
+                        <input
+                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
+                            type="name"
+                            name="name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.name}
+                            placeholder='Please enter Your Name'
+                        />
+                       <p className='text-red-500 mx-[1%] text-xs'>{errors.name && touched.name && errors.name}</p> 
+                    </div>
                     <div className='flex flex-col my-[5%] min-w-[100%]'>
                         <p className='font-serif m-[1%]  text-xl'>Email Address :</p>
                         <input
@@ -57,7 +72,7 @@ const SignUp = () => {
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.email && touched.email && errors.email}</p> 
                     </div>
-                    <div className='flex flex-col mb-[5%] min-w-[100%]'>
+                    <div className='flex flex-col mb-[5%] min-w-[45%]'>
                         <p className='font-serif m-[1%] text-xl'>Password :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -70,7 +85,7 @@ const SignUp = () => {
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.password && touched.password && errors.password}</p>
                     </div>
-                    <div className='flex flex-col mb-[5%] min-w-[100%]'>
+                    <div className='flex flex-col mb-[5%] min-w-[45%]'>
                         <p className='font-serif m-[1%] text-xl'>Confirm Password :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
