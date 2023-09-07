@@ -1,9 +1,11 @@
 import React from 'react'
 import * as yup from 'yup';
 import { Formik } from 'formik';
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
    const  initialValues={ name:'',email: '', password: '',confirmPassword:''}
+   const navigate = useNavigate();
    const getCharacterValidationError = (str) => {
     return `Your password must have at least 1 ${str} character`;
    };
@@ -27,13 +29,26 @@ const SignUp = () => {
         // use "ref" to get the value of passwrod.
         .oneOf([yup.ref("password")], "Passwords does not match")
   });
-
+  
+  const handleFormSubmit = async (values) => {
+    const response = await fetch('http://localhost:5000/api/user/signup', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json()
+    console.log(result);
+    navigate('/')
+    
+  }
   return (
     <div className='mx-[2%] my-[4%]'>
         <Formik
             initialValues={initialValues}
             validationSchema ={schema}
-            onSubmit={(values) => (console.log(values))}
+            onSubmit={(values) => handleFormSubmit(values)}
             >
             {({
                 values,

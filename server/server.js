@@ -1,12 +1,22 @@
 const express = require("express")
 const cors = require("cors")
 const userRoutes = require("./routes/userRoutes")
+require('dotenv').config()
 
 // CONNECT EXPRESS APP
 const app  = express()
 
+// GETTING RID OF CORS ERRORS
+const corsOptions ={
+    origin:'*', 
+    credentials:true,         
+    optionSuccessStatus:200,
+ }
+app.use(cors(corsOptions)) 
+
+// ACCEPT JSON DATA
 app.use(express.json())
-require('dotenv').config()
+
 
 // CONNECT TO MONGO-DB ATLAS
 const {chats} = require("./data/data")

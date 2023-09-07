@@ -1,9 +1,15 @@
 import React from 'react'
 import * as yup from 'yup';
 import { Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+   const navigate = useNavigate()
+
+   //INITIAL VALUES FOR FORM
    const  initialValues={ email: '', password: '' }
+
+   //VALIDATION FOR FORM
    const schema = yup.object().shape({
     email: yup.string()
         .email()
@@ -11,13 +17,27 @@ const Login = () => {
     password: yup.string()
         .required("Please enter a password")
   });
+  
+   //FUNCTION FOR API CALL FOR  USER AUTHENTICATION
+   const handleFormSubmit = async (values) => {
+    const response = await fetch('http://localhost:5000/api/user/login', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json()
+    console.log(result);
+    navigate("/chats")
+  }
 
   return (
     <div className='mx-[2%] my-[4%]'>
         <Formik
             initialValues={initialValues}
             validationSchema ={schema}
-            onSubmit={(values) => (console.log(values))}
+            onSubmit={(values) => handleFormSubmit(values)}
             >
             {({
                 values,
