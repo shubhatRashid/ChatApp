@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+   const [message,setMessage] = useState('')
+   const stateChange = async (text) =>{
+    setMessage(text)
+   }
+
+   // INITIAL VALUES FOR FORM IN FORMIK
    const  initialValues={ name:'',email: '', password: '',confirmPassword:''}
+
+   // FOR NAVIGATING BETWEEN DIFF ROUTES
    const navigate = useNavigate();
+
+   // VALIDATION SCHEMA FOR FORM IN FORMIK
    const getCharacterValidationError = (str) => {
     return `Your password must have at least 1 ${str} character`;
    };
@@ -17,8 +27,10 @@ const SignUp = () => {
         .required("Please enter an email"),
     password: yup.string()
         .required("Please enter a password")
+
         // check minimum characters
         .min(8, "Password must have at least 8 characters")
+
         // different error messages for different requirements
         .matches(/[0-9]/, getCharacterValidationError("digit"))
         .matches(/[a-z]/, getCharacterValidationError("lowercase"))
@@ -26,10 +38,11 @@ const SignUp = () => {
     confirmPassword: yup.string()
         .required("Please re-type your password")
         // use oneOf to match one of the values inside the array.
-        // use "ref" to get the value of passwrod.
+        // use "ref" to get the value of password.
         .oneOf([yup.ref("password")], "Passwords does not match")
-  });
+  }); 
   
+  // API CALL FUNCTION FOR USER REGISTRATION TOWARDS BACKEND REST API
   const handleFormSubmit = async (values) => {
     const response = await fetch('http://localhost:5000/api/user/signup', {
       method: 'POST',
@@ -39,12 +52,17 @@ const SignUp = () => {
       }
     });
     const result = await response.json()
-    console.log(result);
-    navigate('/')
+    
+    console.log(result)
+    await stateChange('successful')
+    alert(message)
+    navigate('/login')
     
   }
   return (
     <div className='mx-[2%] my-[4%]'>
+
+        {/* USING FORMIK FOR FORM HANDLING */}
         <Formik
             initialValues={initialValues}
             validationSchema ={schema}
@@ -61,6 +79,8 @@ const SignUp = () => {
                 /* and other goodies */
             }) => (
                 <form onSubmit={handleSubmit} className='flex flex-wrap justify-between'>
+
+                    {/*NAME INPUT*/}
                     <div className='flex flex-col mt-[5%] min-w-[100%]'>
                         <p className='font-serif m-[1%]  text-xl'>Name :</p>
                         <input
@@ -74,6 +94,8 @@ const SignUp = () => {
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.name && touched.name && errors.name}</p> 
                     </div>
+
+                    {/*EMAIL INPUT*/}
                     <div className='flex flex-col my-[5%] min-w-[100%]'>
                         <p className='font-serif m-[1%]  text-xl'>Email Address :</p>
                         <input
@@ -87,6 +109,8 @@ const SignUp = () => {
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.email && touched.email && errors.email}</p> 
                     </div>
+
+                    {/*PASSWORD INPUT*/}
                     <div className='flex flex-col mb-[5%] min-w-[45%]'>
                         <p className='font-serif m-[1%] text-xl'>Password :</p>
                         <input
@@ -100,6 +124,8 @@ const SignUp = () => {
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.password && touched.password && errors.password}</p>
                     </div>
+
+                    {/*CONFIRM PASSWORD INPUT*/}
                     <div className='flex flex-col mb-[5%] min-w-[45%]'>
                         <p className='font-serif m-[1%] text-xl'>Confirm Password :</p>
                         <input
@@ -113,15 +139,18 @@ const SignUp = () => {
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
                     </div>
+
+                    {/*SUBMIT BUTTON*/}
                     <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className='mx-[1%] mb-[2%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg '>
+                    className='font-serif mx-[1%] mb-[2%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg max-h-[50px] '>
                         Submit
                     </button>
                 </form>
             )}
         </Formik>
+       
 
     </div>
   )

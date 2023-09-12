@@ -5,7 +5,11 @@ import SignUp from "./SignUp"
 const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
 const LoginSignUp = () => {
+
+  {/*STATE VARIABLE FOR TABS CHANGE*/}
   const [value,setValue] = useState("Login")
+
+  {/*FUNCTIONS TO HANDLE TAB CHANGE*/}
   const handleClickLogin = () => {
     setValue("Login")
   }
@@ -14,10 +18,10 @@ const LoginSignUp = () => {
   }
   return (
 
-    // THIS IS THE LOGIN SIGNUP SCREEN //
+    // LOGIN SIGNUP SCREEN //
     <div className='flex mx-auto '>
 
-        {/* THIS IS THE LOGIN SIGNUP FORM AREA */}
+        {/* LOGIN SIGNUP FORM AREA */}
         <div className='mx-auto min-w-[100%] lg:min-w-[40%] px-[3%] py-[2%] md:py-[6%]'>
 
           {/* HEADING BRAND AND NAME */}
@@ -41,9 +45,9 @@ const LoginSignUp = () => {
           </div>
         </div>
 
-        {/* THIS IS THE IMAGE AREA OF THE LOGINSIGNUP SCREEN */}
+        {/* THIS IS THE IMAGE AREA OF THE LOGIN-SIGNUP SCREEN */}
         <div className='mainImage mx-auto hidden md:flex items-center min-w-[60%] px-[3%] min-h-screen resize-y'>
-          <img className='mx-auto bg-white rounded-3xl ' src='https://www.pngmart.com/files/16/Speech-Chat-Icon-Transparent-PNG.png'/>
+          <img className='mx-auto bg-white rounded-3xl' alt='logo' src='https://www.pngmart.com/files/16/Speech-Chat-Icon-Transparent-PNG.png'/>
         </div>
     </div>
   )

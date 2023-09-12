@@ -4,12 +4,14 @@ import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+   // FOR NAVIGATING BETWEEN DIFF ROUTES
    const navigate = useNavigate()
 
-   //INITIAL VALUES FOR FORM
+   //INITIAL VALUES FOR FORM IN FORMIK
    const  initialValues={ email: '', password: '' }
 
-   //VALIDATION FOR FORM
+   //VALIDATION FOR FORM IN FORMIK
    const schema = yup.object().shape({
     email: yup.string()
         .email()
@@ -18,7 +20,7 @@ const Login = () => {
         .required("Please enter a password")
   });
   
-   //FUNCTION FOR API CALL FOR  USER AUTHENTICATION
+   //FUNCTION FOR API CALL FOR  USER AUTHENTICATION CHECK
    const handleFormSubmit = async (values) => {
     const response = await fetch('http://localhost:5000/api/user/login', {
       method: 'POST',
@@ -34,6 +36,8 @@ const Login = () => {
 
   return (
     <div className='mx-[2%] my-[4%]'>
+
+        {/*  USING FORMIK FOR FORM HANDLING */}
         <Formik
             initialValues={initialValues}
             validationSchema ={schema}
@@ -50,6 +54,8 @@ const Login = () => {
                 /* and other goodies */
             }) => (
                 <form onSubmit={handleSubmit} className='flex flex-col items-start'>
+
+                    {/* EMAIL INPUT */}
                     <div className='flex flex-col my-[5%] min-w-[100%]'>
                         <p className='font-serif m-[1%]  text-xl'>Email Address :</p>
                         <input
@@ -63,6 +69,8 @@ const Login = () => {
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.email && touched.email && errors.email}</p> 
                     </div>
+
+                    {/* PASSWORD INPUT */}
                     <div className='flex flex-col mb-[5%] min-w-[100%]'>
                         <p className='font-serif m-[1%] text-xl'>Password :</p>
                         <input
@@ -76,10 +84,12 @@ const Login = () => {
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.password && touched.password && errors.password}</p>
                     </div>
+
+                    {/* SUBMIT BUTTON */}
                     <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className='mx-[1%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg '>
+                    className='font-serif mx-[1%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg'>
                         Submit
                     </button>
                 </form>
