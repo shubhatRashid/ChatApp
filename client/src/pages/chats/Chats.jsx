@@ -66,28 +66,34 @@ const Chats = () => {
         {/* ALL CHATS DIV */}
         <div className={`${usersDiv?"flex":"hidden"} flex-col my-[2%] rounded-lg bg-green-50 w-[550px]`}>
               {/* USER PROFILE */}
-              <div className='flex justify-start'>
+              <div className='flex justify-start h-[10%]'>
                   <div className='w-[15%] h-[15%] my-[2%] ml-[2%]'>
                     <img  className= 'rounded-full' src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' alt='' />
                   </div>
                   <div className='flex items-center ml-[3%]'>
                     <h2 className='font-serif text-sm font-bold'>User Name</h2>
                   </div>
-                  <div className='flex md:hidden flex items-center justify-end w-[60%]'>
+                  <div className='flex sm:hidden flex items-center justify-end w-[60%]'>
                     <Button   src="https://cdn.lordicon.com/qjezzrrz.json" clickFun={() => {setSeeNav(!seeNav)}} size='45px' />
                   </div>
                 
               </div>
 
               {/* GROUP CHATS */}
-              <div>
+              <div className='h-[20%]'>
                   {/* Label */}
                   <div className='flex items-center ml-[5%] mt-[5%]'>
                         <h2 className='font-serif font-bold'>Teams</h2>
                   </div>
 
                   {/* All Groups */}
-                  <div className='flex overflow-x-hidden'>
+                  <div className='flex flex-row overflow-x-auto'>
+                        <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+                        <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+                        <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+                        <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+                        <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+                        <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
                         <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
                         <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
                         <GroupIcon src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
@@ -98,24 +104,30 @@ const Chats = () => {
               
 
               {/* ALL CHATS */}
-              <div>
+              <div className='flex flex-col justify-between h-[65%]'>
                   {/* Label */}
                   <div className='flex items-center ml-[5%] mt-[5%]'>
                         <h2 className='font-serif font-bold'>Chats</h2>
                   </div>
 
                   {/* CHATS */}
-                  <div>
+                  <div className='flex flex-col overflow-y-auto'>
                       <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
                       <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
                       <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
                       <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
+                      <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
+                      <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
+                      <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
+                      <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
+                      <Chat src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' name="Name" lastMessage = 'last message' />
+                      
                   </div>
               </div>
         </div>
 
         {/* CURRENT CHAT DIV */}
-        <div className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-between min-w-[50%] w-screen  bg-green-50 my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%]`}>
+        <div className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-between min-w-[40%] w-screen  bg-green-50 my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%]`}>
 
             {/* SEARCH IN CHAT */}
             <div className='w-[100%] flex items-center bg-white px-[2%] rounded-lg'>
