@@ -7,15 +7,31 @@ import {
 import "./index.css"
 import LoginSignUp from "./pages/loginSignUp/LoginSignUp"
 import Chats from "./pages/chats/Chats"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  
+  const user = localStorage.getItem('userInfo')
+ 
   return (
     <BrowserRouter>
       <Routes>
-      <Route path = "/" element = {<LoginSignUp/>}/>
-      <Route path = "/chats" element = {<Chats/>}/>
+      <Route path = "/" element = {user?<Chats />:<LoginSignUp/>}/>
       </Routes>
+      <div className='z-10'>
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+      />
+      </div>
     </BrowserRouter>
   )
 }

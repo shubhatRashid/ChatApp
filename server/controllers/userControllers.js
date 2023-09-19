@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const generateToken = require("../configs/generateToken")
+const bcrypt = require("bcryptjs")
 
 // REGISTER USER
 const registerUser = asyncHandler(
@@ -9,16 +10,10 @@ const registerUser = asyncHandler(
         // GET REQUIRED VALUES FROM FRONTEND
         const {name,email,password} = req.body
         
-        // CHECKING IF ALL FIELDS EXIST
-        if (!name || !email || !password){
-            res.status(400)
-            throw new Error("Some fields are empty")
-        }
-
         // CHECKING IF USER ALREADY EXISTS
         const userExists = await User.findOne({"email":email})
         if (userExists){
-            throw new Error("Email already registered")
+            return res.status(404).json({message:"Email already registered,Login instead..."})
         }
 
         // REGISTERING NEW USER
@@ -39,7 +34,7 @@ const registerUser = asyncHandler(
                 token:generateToken(user._id)
             })
         }else{
-            throw new Error("Failed to register,Try again.")
+            res.status(404).json({ message: "Failed to register,Try again."})
         }
     })
     
@@ -53,7 +48,8 @@ const registerUser = asyncHandler(
             // CHECK IF USER EXISTS AND PASSWORD IS CORRECT
             const user = await User.findOne({"email":email})
             if (user){
-                if (user.matchPassword(password)) {
+                const match = await user.matchPassword(password)
+                if (match) {
                     res.status(201).json({
                         _id : user._id,
                         name : user.name,
@@ -61,10 +57,12 @@ const registerUser = asyncHandler(
                         pic:user.pic,
                         token:generateToken(user._id)
                     })
+                }else{
+                    res.status(404).json({message:"Invalid email or password"})
                 }
                 
             }else{
-                throw new Error("Invalid email or password")
+                res.status(404).json({message:"Invalid email or password"})
             }
 
 

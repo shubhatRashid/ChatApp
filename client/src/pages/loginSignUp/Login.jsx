@@ -2,9 +2,11 @@ import React from 'react'
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { toastTheme } from '../../constants';
 
 const Login = () => {
-
+   
    // FOR NAVIGATING BETWEEN DIFF ROUTES
    const navigate = useNavigate()
 
@@ -22,16 +24,33 @@ const Login = () => {
   
    //FUNCTION FOR API CALL FOR  USER AUTHENTICATION CHECK
    const handleFormSubmit = async (values) => {
-    const response = await fetch('http://localhost:5000/api/user/login', {
-      method: 'POST',
-      body: JSON.stringify(values),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const result = await response.json()
-    console.log(result);
-    navigate("/chats")
+    try {
+        const response = await fetch('http://localhost:5000/api/user/login', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        });
+        const result = await response.json()
+
+        // IF ALL CREDENTIALS ARE OK 
+        if (response.ok){
+            console.log(result)
+            localStorage.setItem("userInfo",JSON.stringify(result))
+            // For POPUPS
+            toast.success("Successfully logged in", toastTheme);
+            setTimeout(()=>{ window.location.reload()},1000)
+           
+     
+        // IF EMAIL OR PASSWORD IS WRONG
+        }else{
+            toast.warn(result.message, toastTheme);
+        }
+
+    } catch (error) {
+        toast.success(error, toastTheme);
+    }
   }
 
   return (

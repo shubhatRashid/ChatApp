@@ -39,7 +39,7 @@ const LoginSignUp = () => {
                     <button onClick={handleClickSignUp} className={`mx-auto border rounded-lg border-indigo-500 w-[150px] border hover:bg-emerald-200 hover:text-lg ${value==="SignUp" && "bg-emerald-100"}`}>SignUp</button>
                   </div>
                   <div>
-                    {value === "Login"? <Login /> : <SignUp/>}
+                    {value === "Login"? <Login/> : <SignUp/>}
                   </div>
 
           </div>

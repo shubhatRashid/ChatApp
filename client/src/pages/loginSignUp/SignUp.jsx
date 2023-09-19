@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import { toastTheme } from '../../constants';
 
 const SignUp = () => {
-   const [message,setMessage] = useState('')
-   const stateChange = async (text) =>{
-    setMessage(text)
-   }
-
    // INITIAL VALUES FOR FORM IN FORMIK
    const  initialValues={ name:'',email: '', password: '',confirmPassword:''}
 
@@ -27,10 +24,9 @@ const SignUp = () => {
         .required("Please enter an email"),
     password: yup.string()
         .required("Please enter a password")
-
+        
         // check minimum characters
         .min(8, "Password must have at least 8 characters")
-
         // different error messages for different requirements
         .matches(/[0-9]/, getCharacterValidationError("digit"))
         .matches(/[a-z]/, getCharacterValidationError("lowercase"))
@@ -44,19 +40,31 @@ const SignUp = () => {
   
   // API CALL FUNCTION FOR USER REGISTRATION TOWARDS BACKEND REST API
   const handleFormSubmit = async (values) => {
-    const response = await fetch('http://localhost:5000/api/user/signup', {
-      method: 'POST',
-      body: JSON.stringify(values),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const result = await response.json()
+    try {
+        const response = await fetch('http://localhost:5000/api/user/signup', {
+            method: 'POST',
+            body: JSON.stringify(values),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const result = await response.json()
+          
+        // IF ALL CREDENTIALS ARE OK 
+        if (response.ok){
+            toast.success("Successfully Registered", toastTheme);
+            setTimeout(()=>{ window.location.reload()},1000)
+            navigate('/')
+
+        // IF EMAIL ALREADY EXISTS
+        }else{
+            toast.success("Email already registered", toastTheme);
+        }
     
-    console.log(result)
-    await stateChange('successful')
-    alert(message)
-    navigate('/login')
+    } catch (error) {
+        toast.success(error, toastTheme);
+    }
+   
     
   }
   return (
