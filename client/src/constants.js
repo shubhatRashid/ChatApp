@@ -1,7 +1,7 @@
 const toastTheme = {
     position: "top-left",
-    autoClose: 1000,
-    hideProgressBar: false,
+    autoClose: 500,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,

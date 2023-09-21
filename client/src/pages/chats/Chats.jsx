@@ -41,7 +41,7 @@ const Chats = () => {
   const logoutFun = () => {
     localStorage.clear()
     toast.success("Logged Out...", toastTheme);
-    setTimeout(()=>{ window.location.reload()},2000)
+    setTimeout(()=>{ window.location.reload()},500)
   }
   const searchFun = () => {}
   const handleSearch = () => {}

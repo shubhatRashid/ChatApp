@@ -53,7 +53,7 @@ const SignUp = () => {
         // IF ALL CREDENTIALS ARE OK 
         if (response.ok){
             toast.success("Successfully Registered", toastTheme);
-            setTimeout(()=>{ window.location.reload()},1000)
+            setTimeout(()=>{ window.location.reload()},500)
             navigate('/')
 
         // IF EMAIL ALREADY EXISTS

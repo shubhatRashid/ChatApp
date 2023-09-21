@@ -1,6 +1,8 @@
 const express = require("express")
 const cors = require("cors")
 const userRoutes = require("./routes/userRoutes")
+const chatRoutes = require("./routes/chatRoutes")
+
 require('dotenv').config()
 const {errorHandler,notFound} = require("./middleware/errorMiddleware")
 
@@ -24,18 +26,12 @@ const {chats} = require("./data/data")
 const connectDb = require("./configs/db")
 connectDb()
 
-// HOME ROUTE
-app.get("/",(req,res) =>{
-    res.send("Server Up and Running on 5000");
-})
-
 // USER ROUTES
 app.use('/api/user',userRoutes)
 
-// DATA ROUTE
-app.get("/api/chats",(req,res) =>{
-    res.send(chats);
-})
+
+// CHATS ROUTE
+app.use("/api/chats",chatRoutes)
 
 // ERROR HANDLING
 app.use(errorHandler)

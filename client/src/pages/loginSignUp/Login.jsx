@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { toastTheme } from '../../constants';
 
 const Login = () => {
-   
    // FOR NAVIGATING BETWEEN DIFF ROUTES
    const navigate = useNavigate()
 
@@ -39,8 +38,8 @@ const Login = () => {
             console.log(result)
             localStorage.setItem("userInfo",JSON.stringify(result))
             // For POPUPS
-            toast.success("Successfully logged in", toastTheme);
-            setTimeout(()=>{ window.location.reload()},1000)
+            toast.success("Logged in...", toastTheme);
+            setTimeout(()=>{ window.location.reload()},500)
            
      
         // IF EMAIL OR PASSWORD IS WRONG
