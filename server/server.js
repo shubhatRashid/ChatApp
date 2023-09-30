@@ -27,7 +27,7 @@ const connectDb = require("./configs/db")
 connectDb()
 
 // USER ROUTES
-app.use('/api/user',userRoutes)
+app.use('/api/users',userRoutes)
 
 
 // CHATS ROUTE

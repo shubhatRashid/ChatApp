@@ -7,11 +7,12 @@ import {
 import "./index.css"
 import LoginSignUp from "./pages/loginSignUp/LoginSignUp"
 import Chats from "./pages/chats/Chats"
-import { ToastContainer, toast } from 'react-toastify';
+import {ChatState} from "./context/ChatProvider"
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const user = localStorage.getItem('userInfo')
+  const {user} = ChatState()
  
   return (
     <BrowserRouter>

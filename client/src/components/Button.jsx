@@ -3,7 +3,7 @@ import React from 'react'
 const Button = ({src,clickFun,size}) => {
   return (
     <div>
-        <button className='my-[20%]' onClick={clickFun}>
+        <button className='flex items-center h-[100%]' onClick={clickFun} type='submit'>
             <lord-icon
                 src={src}
                 trigger="click"

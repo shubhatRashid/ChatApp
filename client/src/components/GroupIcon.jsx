@@ -1,10 +1,14 @@
 import React from 'react'
 
-const groupIcon = ({src}) => {
+const groupIcon = ({src,groupName,clickFun}) => {
   return (
-    <div className='min-w-[10%] max-w-[15%] my-[2%] mx-[3%] flex flex-col items-center'>
-        <img className='rounded-full my-[3%]' src={src} alt='' />
-        <p className='font-serif text-xs'>Group</p>
+    <div className='w-[15%] max-w-20%] my-[2%] mx-[3%] flex flex-col items-center'>
+        <button onClick={clickFun}>
+          <img className='rounded-full my-[3%] border' src={src} alt='' />
+        </button>
+        <div className='flex items-center w-[100%] h-[100%] justify-around '>
+          <p className='font-serif text-xs'>{groupName}</p>
+        </div>
     </div>
   )
 }

@@ -1,0 +1,33 @@
+import React from 'react'
+import { gradient} from "../constants"
+import Button from './Button'
+const Sidebar = ({homeFun,chatFun,searchFun,logoutFun}) => {
+  return (
+    <div>
+        <div className='w-[50px] h-[100%]'>
+            <div className='flex flex-col h-[25%] py-[4%]'>
+                <img src='https://www.pngmart.com/files/16/Speech-Chat-Icon-Transparent-PNG.png' alt='brand' className=''/>
+                <p className={`font-serif text-xs ${gradient} bg-clip-text  text-transparent`}>Chat App</p>
+            </div>
+        
+
+            {/* UPPER ICON BUTTONS */}
+            <div className='flex flex-col'>
+              <Button src="https://cdn.lordicon.com/kxoxiwrf.json" size= '45px' clickFun={homeFun}/>
+              <Button src="https://cdn.lordicon.com/mjmrmyzg.json" size = '45px' clickFun={chatFun} />
+              <Button src="https://cdn.lordicon.com/whttoese.json" size= '45px' clickFun={() =>{}}/>
+              <Button src="https://cdn.lordicon.com/ljvjsnvh.json" size= '45px' clickFun={() =>{}}/>
+              <Button src="https://cdn.lordicon.com/tsnvgrkp.json" size= '45px' clickFun={() =>{}}/>
+              <Button src="https://cdn.lordicon.com/zniqnylq.json" size= '45px' clickFun={searchFun} />
+            </div>
+
+            {/* LOGOUT BUTTON ICON */}
+            <div  className='flex flex-col-reverse h-[30%]'>
+              <Button src="https://cdn.lordicon.com/hcuxerst.json" size ='45px' clickFun={logoutFun} />
+            </div>
+        </div>
+    </div>
+  )
+}
+
+export default Sidebar

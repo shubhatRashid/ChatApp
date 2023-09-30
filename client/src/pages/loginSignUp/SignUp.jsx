@@ -41,7 +41,7 @@ const SignUp = () => {
   // API CALL FUNCTION FOR USER REGISTRATION TOWARDS BACKEND REST API
   const handleFormSubmit = async (values) => {
     try {
-        const response = await fetch('http://localhost:5000/api/user/signup', {
+        const response = await fetch('http://localhost:5000/api/users/signup', {
             method: 'POST',
             body: JSON.stringify(values),
             headers: {
