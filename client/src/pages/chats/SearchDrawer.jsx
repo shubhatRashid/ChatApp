@@ -23,13 +23,13 @@ const SearchDrawer = ({showSearch,searchFun}) => {
     }
 
     // FUNCTION TO MAKE API CALL TO FETCH CHATS WITH SEARCHED USER //
-    const fetchChat = async (id) =>{
+    const fetchChat = async (id,name) =>{
         try {
             const URL = "http://localhost:5000/api/chats"
             const headers = { 
                 "content-type" : "application/json",
                 'Authorization': `Bearer ${user.token}` };
-            const body = {userId:id}
+            const body = {userId:id,chatName:name}
             var response = await fetch(URL, {
                 method:"POST",
                 body:JSON.stringify(body),
@@ -61,8 +61,8 @@ const SearchDrawer = ({showSearch,searchFun}) => {
     }
 
     // FUNCTION TO HANDLE CLICK ON SEARCHED USER //
-    const accessChat = async (id) =>{
-        const chat = await fetchChat(id)
+    const accessChat = async (id,name) =>{
+        const chat = await fetchChat(id,name)
         setSelectedChat(chat)
         if (!chats.find((c) => c._id === chat._id)) setChats([chat, ...chats])
         searchFun()
@@ -80,7 +80,7 @@ const SearchDrawer = ({showSearch,searchFun}) => {
                 {/* SEARCH RESULTS */}
                 <div className='text-black'>
                     {loader?<ChatsLoader /> :data.map((value) =>(
-                        <button onClick={() => accessChat(value._id)}>
+                        <button onClick={() => accessChat(value._id,value.name)}>
                              <Chat name= {value.name} key={value._id} src={value.pic} subText={value.email}/>
                         </button>
                     )) }

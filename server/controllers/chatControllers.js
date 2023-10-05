@@ -9,8 +9,7 @@ const accessChat = asyncHandler(
     async (req,res) => {
 
     // SENDERS ID //
-    const {userId} = req.body;  
-
+    const {userId,chatName} = req.body;  
     if (!userId){
         res.status(400)
         throw new Error ("user Id not provided")
@@ -37,7 +36,7 @@ const accessChat = asyncHandler(
         res.send(isChat[0])    
     }else{
         var chatData = {
-            chatName:"sender",
+            chatName:chatName,
             isGroupChat:false,
             users:[req.user._id,userId]
         }
@@ -45,6 +44,7 @@ const accessChat = asyncHandler(
             const createdChat = await Chat.create(chatData)
             const fullChat = await Chat.findOne({_id:createdChat._id})
             .populate("users","-password")
+            .populate("latestMessage")
             res.status(200).send(fullChat)
 
         } catch (error) {
@@ -87,7 +87,7 @@ const createGroupChat = asyncHandler(
         if (!req.body.name || !req.body.users){
            res.status(400).send({message:'Please fill all the fields'})
         }
-        const users = JSON.parse(req.body.users)
+        const users = req.body.users
 
         // IF NUMBER OF USERS IF LESS THAN 3 //
         if (users.length < 2){

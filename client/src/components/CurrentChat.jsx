@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ChatBubble from './ChatBubble'
 import Search from './Search'
 import Button from './Button'
+import { ChatState } from '../context/ChatProvider'
 
-const CurrentChat = ({showSidebar,usersDiv,seeChat}) => {
+const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart}) => {
+  const {chats,selectedChat,setSelectedChat} = ChatState()
+
   return (
+    selectedChat ?
+    
     <div className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-between min-w-[40%] w-screen  bg-green-50 my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%]`}>
 
     {/* SEARCH IN CHAT */}
@@ -23,7 +28,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat}) => {
                   <img  className= 'rounded-full' src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' alt='' />
                 </div>
                 <div className='flex items-center ml-[3%]'>
-                  <h2 className='font-serif text-sm'>Sender Name</h2>
+                  <h2 className='font-serif text-sm' >{selectedChat.chatName}</h2>
                 </div>
           </div>
          
@@ -57,6 +62,12 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat}) => {
     </div>
 
 </div>
+
+:
+<div className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-center items-center min-w-[40%] w-screen  bg-white  my-[2%] mx-[1%] rounded-lg ml-[2%]  relative`}>
+      <img className='max-w-full h-auto rounded-lg bg-transparent mb-[4%]' src= "https://i.pinimg.com/originals/07/39/61/0739613927cfc7c51d6b352119cd7294.gif" />
+      <p className={`${isStart?"flex":"hidden"} absolute z-10 bottom-[10%] left-[40% border rounded-lg p-[3%] font-serif text-lg font-bold bg-white text-yellow-500`}>Please select a chat to begin ...</p>
+    </div>
   )
 }
 

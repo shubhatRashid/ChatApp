@@ -2,7 +2,7 @@ import React from 'react'
 
 const groupIcon = ({src,groupName,clickFun}) => {
   return (
-    <div className='w-[15%] max-w-20%] my-[2%] mx-[3%] flex flex-col items-center'>
+    <div className='w-[50px] my-[2%] mx-[3%] flex flex-col items-center'>
         <button onClick={clickFun}>
           <img className='rounded-full my-[3%] border' src={src} alt='' />
         </button>

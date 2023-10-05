@@ -1,4 +1,4 @@
-import React ,{useState}from 'react'
+import React ,{useEffect, useState}from 'react'
 import { toast } from 'react-toastify';
 import { toastTheme } from '../../constants';
 import { ChatState } from '../../context/ChatProvider';
@@ -17,9 +17,11 @@ const Chats = () => {
 
   // STATE VARIABLES
   const [searchDrawer,setSearchDrawer] = useState(false) // determines if search Drawer is visible //
-  const [usersDiv,setUsersDiv] = useState(true) // determines if current chat div if visible //
+  const [usersDiv,setUsersDiv] = useState(true) // determines if div containing all chats if visible //
   const [seeNav,setSeeNav] = useState(false)    // determines if sidebar if visible //
-  const [seeChat,setSeeChat] = useState(true)   // determines if div containing all chats if visible //
+  const [seeChat,setSeeChat] = useState(true)   // determines if current chat div if visible // 
+  const [isStart,setStart] = useState(true)  // if it the start of the app //
+ 
 
 
   // FUNCTIONS FOR BUTTONS
@@ -36,7 +38,11 @@ const Chats = () => {
 
   const chatFun = () => {
     setSeeChat(true)
-    setUsersDiv(false)}
+    console.log(window.innerWidth)
+    if (window.innerWidth < 900){
+      setUsersDiv(false)}
+    }
+   
 
   const searchFun = () => {setSearchDrawer(!searchDrawer)}
   const showSidebar = () => {setSeeNav(!seeNav)}
@@ -55,13 +61,13 @@ const Chats = () => {
         {/* ALL CHATS DIV */}
         <div className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-green-50 w-[550px] px-[1%]`}>
             <UserProfile user={user} showSidebar={showSidebar}/>
-            <Groups />
-            <ChatList/>
+            <Groups  setStart = {setStart} chatFun={chatFun}/>
+            <ChatList chatFun={chatFun} setStart= {setStart}/>
 
         </div>
 
         {/* CURRENT CHAT DIV */}
-        <CurrentChat showSidebar={showSidebar} usersDiv={usersDiv} seeChat={seeChat}/>
+        <CurrentChat showSidebar={showSidebar} usersDiv={usersDiv} seeChat={seeChat} isStart={isStart} />
     </div>
   )
 }

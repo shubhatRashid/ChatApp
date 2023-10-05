@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 import { toastTheme} from "../../constants"
 import ChatsLoader from '../../loaders/ChatsLoader';
 
-const ChatList = () => {
-  const {chats,user,setChats} = ChatState() //get the required states from context api //
+const ChatList = ({chatFun,setStart}) => {
+  const {chats,user,setChats,setSelectedChat} = ChatState() //get the required states from context api // 
   const [loading,setLoading] = useState(true)
 
   // FUNCTION TO MAKE API CALL TO FETCH ALL CHATS OF THE LOGGED USER//
@@ -27,12 +27,19 @@ const ChatList = () => {
         console.log(error)
     }
   }
-  
+
+  const clickChat = (chat) => {
+    setStart(false)
+    setSelectedChat()
+    setTimeout(() => {
+      setSelectedChat(chat)
+    },1000)
+    chatFun()
+  }
+
   useEffect(() =>{
     fetchChats()
-    console.log(chats)
   },[])
-
   return (
     <div className='flex flex-col h-[65%] border-b-4 rounded-lg'>
         {/* Label */}
@@ -43,11 +50,12 @@ const ChatList = () => {
         {/*ALL CHATS OF LOGGED IN USER*/}
         <div className='flex flex-col  overflow-y-auto'>
           {loading?<ChatsLoader/>:chats.map((chat) => (
-            <button>
+            <button onClick = {() => clickChat(chat)} >
               <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }
               name={chat.users[1].name === user.name? chat.users[0].name:chat.users[1].name } 
               key = {chat._id} 
-              subText = {chat.lastMessage} />
+              subText = {chat.lastMessage}
+               />
             </button>
           ))}
         </div>
