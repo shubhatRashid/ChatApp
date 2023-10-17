@@ -6,7 +6,7 @@ import Sidebar from "../../components/Sidebar"
 import Groups from './Groups';
 import UserProfile from "../../components/UserProfile"
 import ChatList from './ChatList';
-import CurrentChat from '../../components/CurrentChat';
+import CurrentChat from './CurrentChat';
 import SearchDrawer from "./SearchDrawer"
 
 
@@ -67,7 +67,7 @@ const Chats = () => {
         </div>
 
         {/* CURRENT CHAT DIV */}
-        <CurrentChat showSidebar={showSidebar} usersDiv={usersDiv} seeChat={seeChat} isStart={isStart} />
+        <CurrentChat isStart={isStart} showSidebar={showSidebar} usersDiv={usersDiv} seeChat={seeChat} />
     </div>
   )
 }

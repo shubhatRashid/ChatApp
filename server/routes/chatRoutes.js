@@ -1,7 +1,7 @@
 const express = require('express')
 const protect = require('../middleware/protectMiddleware')
 const router = express.Router()
-const {accessChat,fetchChats,fetchGroups,createGroupChat,renameGroupChat,addToGroup,removeFromGroup} = require("../controllers/chatControllers")
+const {accessChat,fetchChats,fetchGroups,createGroupChat,renameGroupChat,addToGroup,removeFromGroup,updateGroup} = require("../controllers/chatControllers")
 
 router.route("/")
     .post(protect,accessChat)

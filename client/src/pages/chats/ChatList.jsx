@@ -6,7 +6,7 @@ import { toastTheme} from "../../constants"
 import ChatsLoader from '../../loaders/ChatsLoader';
 
 const ChatList = ({chatFun,setStart}) => {
-  const {chats,user,setChats,setSelectedChat} = ChatState() //get the required states from context api // 
+  const {chats,user,setChats,setSelectedChat,setMessages} = ChatState() //get the required states from context api // 
   const [loading,setLoading] = useState(true)
 
   // FUNCTION TO MAKE API CALL TO FETCH ALL CHATS OF THE LOGGED USER//
@@ -28,9 +28,29 @@ const ChatList = ({chatFun,setStart}) => {
     }
   }
 
-  const clickChat = (chat) => {
+// FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
+const fetchCurrentChats = async(id) => {
+  try {
+    const URL = `http://localhost:5000/api/messages/${id}`
+    const headers = { 
+        'Authorization': `Bearer ${user.token}` };
+    var response = await fetch(URL, {
+        method:"GET",
+        headers:headers
+    })
+    response = await response.json()
+    setMessages(response)
+    
+  } catch (error) {
+      toast.error(error.message,toastTheme)
+  }
+}
+
+// FUNCTION TO SELECT A CHAT OUT OF ALL CHATS 
+  const clickChat = async (chat) => {
     setStart(false)
     setSelectedChat()
+    await fetchCurrentChats(chat._id)
     setTimeout(() => {
       setSelectedChat(chat)
     },1000)

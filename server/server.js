@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
+const messageRoutes = require("./routes/messageRoutes")
 
 require('dotenv').config()
 const {errorHandler,notFound} = require("./middleware/errorMiddleware")
@@ -32,6 +33,9 @@ app.use('/api/users',userRoutes)
 
 // CHATS ROUTE
 app.use("/api/chats",chatRoutes)
+
+// MESSAGES ROUTE
+app.use("/api/messages",messageRoutes)
 
 // ERROR HANDLING
 app.use(errorHandler)

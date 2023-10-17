@@ -1,5 +1,5 @@
 const toastTheme = {
-    position: "top-left",
+    position: "top-right",
     autoClose: 500,
     hideProgressBar: true,
     closeOnClick: true,

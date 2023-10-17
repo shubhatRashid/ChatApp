@@ -7,7 +7,7 @@ import { toastTheme } from '../../constants';
 import AddToGroup from './AddToGroup';
 
 const Groups = ({setStart,chatFun}) => {
-  const {user,groups,setGroups,selectedChat,setSelectedChat} = ChatState() //get the required states from context api //
+  const {user,groups,setGroups,setMessages,setSelectedChat} = ChatState() //get the required states from context api //
   const [showCreateGroup,setShowCreateGroup] = useState(false)
   const [loading,setLoading] = useState(true)
 
@@ -29,11 +29,30 @@ const Groups = ({setStart,chatFun}) => {
         console.log(error)
     }
   }
-  
+
+  // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR GROUP
+const fetchCurrentChats = async(id) => {
+  try {
+    const URL = `http://localhost:5000/api/messages/${id}`
+    const headers = { 
+        'Authorization': `Bearer ${user.token}` };
+    var response = await fetch(URL, {
+        method:"GET",
+        headers:headers
+    })
+    response = await response.json()
+    setMessages(response)
+    
+  } catch (error) {
+      toast.error(error.message,toastTheme)
+  }
+}
+
   // FUNCTION TO ACCESS A GROUP //!SECTION
   const accessGroup = (group) => {
     setStart(false)
     setSelectedChat()
+    fetchCurrentChats(group._id)
     setTimeout(() => {
       setSelectedChat(group)
     },1000)
