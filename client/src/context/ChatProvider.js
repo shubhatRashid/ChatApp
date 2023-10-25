@@ -8,13 +8,23 @@ const ChatProvider = ({children}) => {
     const [user,setUser] = useState()   // USER STATE //
     const [selectedChat,setSelectedChat] = useState()   // CURRENT CHAT //
     const [chats,setChats] = useState([]) // ALL CHATS OF LOGGED USER //
-    const [messages,setMessages] = useState([])
+    const [messages,setMessages] = useState([]) // ALL MESSAGES OF THE SELECTED CHAT
+    const [notification,setNotification] = useState([]) // NOTIFY ABOUT UNREAD CHATS
+
     // SETTING THE USER STATE INFO //
     useEffect( () => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo'))
         setUser(userInfo)
     },[])
-    return  <ChatContext.Provider value={{user,setUser,selectedChat,setSelectedChat,chats,setChats,groups,setGroups,messages,setMessages}}>
+    return  <ChatContext.Provider 
+                value={{
+                    user,setUser,
+                    selectedChat,setSelectedChat,
+                    chats,setChats,
+                    groups,setGroups,
+                    messages,setMessages,
+                    notification,setNotification}}
+            >
               {children}
             </ChatContext.Provider>
 }

@@ -41,7 +41,37 @@ app.use("/api/messages",messageRoutes)
 app.use(errorHandler)
 app.all('*',notFound)
 
-app.listen(
-    process.env.PORT,
-    console.log("started")
-    )
+const server = app.listen(
+        process.env.PORT,
+        console.log("started")
+        )
+
+// SETTING UP SOCKET.IO //
+const io = require("socket.io")(server,{
+    cors:{
+        origin:process.env.CLIENT_URL
+    }
+})
+
+io.on("connection",(socket) => {
+    console.log("connected to socket.io") // to check connection status
+
+    // CREATING A ROOM FOR A USER //
+    socket.on('setup',(userData) =>{
+        socket.join(userData._id)
+        socket.emit('connected')
+    })
+
+    //PUT NEW MESSAGE iN RESPECTIVE SOCKET//
+    socket.on("new message",(newMessageReceived) => {
+        var chat = newMessageReceived.chat
+
+        if (!chat.users) return console.log("chat.users not defined")
+
+        chat.users.forEach(user => {
+            if (user._id === newMessageReceived.sender._id) return;
+
+            socket.in(user._id).emit("message received",newMessageReceived)
+        });
+    })
+})

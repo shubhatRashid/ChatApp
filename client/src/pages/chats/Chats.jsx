@@ -13,7 +13,7 @@ import SearchDrawer from "./SearchDrawer"
 const Chats = () => {
 
   // USER'S INFO //
-  const {user} = ChatState()
+  const {user,notification,setNotification,selectedChat} = ChatState()
 
   // STATE VARIABLES
   const [searchDrawer,setSearchDrawer] = useState(false) // determines if search Drawer is visible //
@@ -21,6 +21,7 @@ const Chats = () => {
   const [seeNav,setSeeNav] = useState(false)    // determines if sidebar if visible //
   const [seeChat,setSeeChat] = useState(true)   // determines if current chat div if visible // 
   const [isStart,setStart] = useState(true)  // if it the start of the app //
+  const [clickedNotification,setClickedNotification] = useState(false) // to judge if any particular notification has been clicked
  
 
 
@@ -38,7 +39,6 @@ const Chats = () => {
 
   const chatFun = () => {
     setSeeChat(true)
-    console.log(window.innerWidth)
     if (window.innerWidth < 900){
       setUsersDiv(false)}
     }
@@ -54,20 +54,20 @@ const Chats = () => {
         <SearchDrawer showSearch={searchDrawer} searchFun = {searchFun}/>
 
         {/* SIDEBAR FOR QUICK ACCESS */}
-        <div className={`${seeNav?'flex':'hidden'} sm:flex bg-[#116D6E] my-[2%] mx-[2%] rounded-lg ml-[2%] px-[1%]`}>
+        <div className={`${seeNav?'flex':'hidden'} sm:flex bg-[#116D6E] my-[2%] mx-[2%] rounded-lg ml-[2%] px-[1%] border`}>
             <Sidebar homeFun= {homeFun} chatFun={chatFun} searchFun = {searchFun} logoutFun = {logoutFun} />
         </div>
 
         {/* ALL CHATS DIV */}
-        <div className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-green-50 w-[550px] px-[1%]`}>
+        <div className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-green-50 w-[550px] px-[1%] py-[1%] border`}>
             <UserProfile user={user} showSidebar={showSidebar}/>
             <Groups  setStart = {setStart} chatFun={chatFun}/>
-            <ChatList chatFun={chatFun} setStart= {setStart}/>
+            <ChatList chatFun={chatFun} setStart= {setStart} clickedNotification={clickedNotification} setClickedNotification={setClickedNotification}/>
 
         </div>
 
         {/* CURRENT CHAT DIV */}
-        <CurrentChat isStart={isStart} showSidebar={showSidebar} usersDiv={usersDiv} seeChat={seeChat} />
+        <CurrentChat isStart={isStart} showSidebar={showSidebar} usersDiv={usersDiv} seeChat={seeChat} setClickedNotification={setClickedNotification} />
     </div>
   )
 }

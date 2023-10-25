@@ -24,7 +24,7 @@ const Login = () => {
    //FUNCTION FOR API CALL FOR  USER AUTHENTICATION CHECK
    const handleFormSubmit = async (values) => {
     try {
-        const response = await fetch('http://localhost:5000/api/users/login', {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_PORT}/api/users/login`, {
         method: 'POST',
         body: JSON.stringify(values),
         headers: {

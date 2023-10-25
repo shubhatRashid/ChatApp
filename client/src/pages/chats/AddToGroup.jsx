@@ -19,7 +19,7 @@ const AddToGroup = ({show,setShow}) => {
 
     // FUNCTION TO MAKE API CALL TO FETCH SEARCHED USERS //
     const fetchUsers = async (query) => {
-        const URL = `http://localhost:5000/api/users?search=${query}`
+        const URL = `${process.env.REACT_APP_SERVER_PORT}/api/users?search=${query}`
         const headers = { 'Authorization': `Bearer ${user.token}` };
         var response = await fetch(URL, {headers})
         response = response.json()
@@ -76,7 +76,7 @@ const AddToGroup = ({show,setShow}) => {
         }
 
         try {
-            const URL = "http://localhost:5000/api/chats/groups"
+            const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats/groups`
             const headers = { 
                 "content-type" : "application/json",
                 'Authorization': `Bearer ${user.token}` };

@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react'
+import React,{useCallback, useEffect, useState} from 'react'
 import GroupIcon from "../../components/GroupIcon"
 import GroupLoader from '../../loaders/GroupLoader';
 import { ChatState } from '../../context/ChatProvider';
@@ -12,9 +12,9 @@ const Groups = ({setStart,chatFun}) => {
   const [loading,setLoading] = useState(true)
 
   // FUNCTION TO MAKE API CALL TO FETCH ALL CHATS OF THE LOGGED USER//
-  const fetchGroups = async () =>{
+  const fetchGroups = useCallback( async () =>{
     try {
-        const URL = "http://localhost:5000/api/chats/groups"
+        const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats/groups`
         const headers = { 
             'Authorization': `Bearer ${user.token}` };
         var response = await fetch(URL, {
@@ -28,12 +28,12 @@ const Groups = ({setStart,chatFun}) => {
         toast.error("Unable to get groups",toastTheme)
         console.log(error)
     }
-  }
+  },[setGroups,user.token])
 
   // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR GROUP
 const fetchCurrentChats = async(id) => {
   try {
-    const URL = `http://localhost:5000/api/messages/${id}`
+    const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages/${id}`
     const headers = { 
         'Authorization': `Bearer ${user.token}` };
     var response = await fetch(URL, {
@@ -42,7 +42,6 @@ const fetchCurrentChats = async(id) => {
     })
     response = await response.json()
     setMessages(response)
-    
   } catch (error) {
       toast.error(error.message,toastTheme)
   }
@@ -62,7 +61,8 @@ const fetchCurrentChats = async(id) => {
 
   useEffect(() =>{
     fetchGroups()
-  },[])
+  },[fetchGroups])
+
   return (
     <div className='h-[20%] border-b-4 rounded-lg]'>
 

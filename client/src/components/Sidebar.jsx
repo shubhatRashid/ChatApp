@@ -15,9 +15,6 @@ const Sidebar = ({homeFun,chatFun,searchFun,logoutFun}) => {
             <div className='flex flex-col gap-[5%] items-center'>
               <Button src="https://cdn.lordicon.com/kxoxiwrf.json" size= '45px' clickFun={homeFun}/>
               <Button src="https://cdn.lordicon.com/mjmrmyzg.json" size = '45px' clickFun={chatFun} />
-              <Button src="https://cdn.lordicon.com/whttoese.json" size= '45px' clickFun={() =>{}}/>
-              <Button src="https://cdn.lordicon.com/ljvjsnvh.json" size= '45px' clickFun={() =>{}}/>
-              <Button src="https://cdn.lordicon.com/tsnvgrkp.json" size= '45px' clickFun={() =>{}}/>
               <Button src="https://cdn.lordicon.com/zniqnylq.json" size= '45px' clickFun={searchFun} />
             </div>
 

@@ -18,7 +18,7 @@ const UpdateGroup = ({show,setShow}) => {
 
     // FUNCTION TO MAKE API CALL TO FETCH SEARCHED USERS //
     const fetchUsers = async (query) => {
-        const URL = `http://localhost:5000/api/users?search=${query}`
+        const URL = `${process.env.REACT_APP_SERVER_PORT}/api/users?search=${query}`
         const headers = { 'Authorization': `Bearer ${user.token}` };
         var response = await fetch(URL, {headers})
         response = response.json()
@@ -61,7 +61,7 @@ const UpdateGroup = ({show,setShow}) => {
         }
 
         try {
-            const URL = "http://localhost:5000/api/chats/groupadd"
+            const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats/groupadd`
             const headers = { 
                 "content-type" : "application/json",
                 'Authorization': `Bearer ${user.token}` };
@@ -89,7 +89,7 @@ const UpdateGroup = ({show,setShow}) => {
     const removeUser = async (e,id) => {
         e.preventDefault()
         try {
-            const URL = "http://localhost:5000/api/chats/groupremove"
+            const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats/groupremove`
             const headers = { 
                 "content-type" : "application/json",
                 'Authorization': `Bearer ${user.token}` };
@@ -122,7 +122,7 @@ const UpdateGroup = ({show,setShow}) => {
         }
 
         try {
-            const URL = "http://localhost:5000/api/chats/renamegroup"
+            const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats/renamegroup`
             const headers = { 
                 "content-type" : "application/json",
                 'Authorization': `Bearer ${user.token}` };

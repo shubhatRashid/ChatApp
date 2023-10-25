@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Chat from '../../components/Chat';
 import { ChatState } from '../../context/ChatProvider';
 import { toast } from 'react-toastify';
-import { toastTheme} from "../../constants"
+import { fetchChatName, toastTheme} from "../../constants"
 import ChatsLoader from '../../loaders/ChatsLoader';
 
-const ChatList = ({chatFun,setStart}) => {
-  const {chats,user,setChats,setSelectedChat,setMessages} = ChatState() //get the required states from context api // 
+// VARIABLES FOR SOCKET CONNECTION //
+
+const ChatList = ({chatFun,setStart,clickedNotification,setClickedNotification}) => {
+  const {chats,user,setChats,selectedChat,setSelectedChat,setMessages,notification,setNotification} = ChatState() //get the required states from context api // 
   const [loading,setLoading] = useState(true)
 
   // FUNCTION TO MAKE API CALL TO FETCH ALL CHATS OF THE LOGGED USER//
-  const fetchChats = async () =>{
+  const fetchChats = useCallback (async () =>{
     try {
-        const URL = "http://localhost:5000/api/chats"
+        const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats`
         const headers = { 
             'Authorization': `Bearer ${user.token}` };
         var response = await fetch(URL, {
@@ -26,12 +28,12 @@ const ChatList = ({chatFun,setStart}) => {
         toast.error("Unable to get chats",toastTheme)
         console.log(error)
     }
-  }
+  },[setChats,user.token])
 
 // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
 const fetchCurrentChats = async(id) => {
   try {
-    const URL = `http://localhost:5000/api/messages/${id}`
+    const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages/${id}`
     const headers = { 
         'Authorization': `Bearer ${user.token}` };
     var response = await fetch(URL, {
@@ -40,7 +42,7 @@ const fetchCurrentChats = async(id) => {
     })
     response = await response.json()
     setMessages(response)
-    
+ 
   } catch (error) {
       toast.error(error.message,toastTheme)
   }
@@ -48,22 +50,29 @@ const fetchCurrentChats = async(id) => {
 
 // FUNCTION TO SELECT A CHAT OUT OF ALL CHATS 
   const clickChat = async (chat) => {
+    setNotification(notification.filter((n) => n.chat._id !== chat._id))
+
     setStart(false)
     setSelectedChat()
-    await fetchCurrentChats(chat._id)
     setTimeout(() => {
       setSelectedChat(chat)
     },1000)
+    await fetchCurrentChats(chat._id)
     chatFun()
   }
 
   useEffect(() =>{
+    if (clickedNotification){
+      clickChat(selectedChat)
+      setClickedNotification(false)
+    }
     fetchChats()
-  },[])
+  },[fetchChats,clickedNotification])
+  
   return (
     <div className='flex flex-col h-[65%] border-b-4 rounded-lg'>
         {/* Label */}
-        <div className='flex flex-col items-start  mt-[5%]  py-[2%]'>
+        <div className='flex justify-between items-center  mt-[5%]  py-[2%]'>
             <h2 className='font-serif font-bold ml-[5%]  border-b-2'>Chats</h2>
         </div>
 
@@ -72,9 +81,9 @@ const fetchCurrentChats = async(id) => {
           {loading?<ChatsLoader/>:chats.map((chat) => (
             <button onClick = {() => clickChat(chat)} >
               <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }
-              name={chat.users[1].name === user.name? chat.users[0].name:chat.users[1].name } 
+              name={fetchChatName(chat,user)} 
               key = {chat._id} 
-              subText = {chat.lastMessage}
+              subText = {chat.latestMessage?chat.latestMessage.content:" "}
                />
             </button>
           ))}

@@ -15,7 +15,7 @@ const SearchDrawer = ({showSearch,searchFun}) => {
 
     // FUNCTION TO MAKE API CALL TO FETCH SEARCHED USERS //
     const fetchUsers = async (query) => {
-        const URL = `http://localhost:5000/api/users?search=${query}`
+        const URL = `${process.env.REACT_APP_SERVER_PORT}/api/users?search=${query}`
         const headers = { 'Authorization': `Bearer ${user.token}` };
         var response = await fetch(URL, {headers})
         response = response.json()
@@ -25,7 +25,7 @@ const SearchDrawer = ({showSearch,searchFun}) => {
     // FUNCTION TO MAKE API CALL TO FETCH CHATS WITH SEARCHED USER //
     const fetchChat = async (id,name) =>{
         try {
-            const URL = "http://localhost:5000/api/chats"
+            const URL = `${process.env.REACT_APP_SERVER_PORT}/api/chats`
             const headers = { 
                 "content-type" : "application/json",
                 'Authorization': `Bearer ${user.token}` };
