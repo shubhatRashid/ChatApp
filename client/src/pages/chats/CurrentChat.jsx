@@ -104,7 +104,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
       })
       response = await response.json()
 
-      socket.emit("new message",response) // sending new message into the room using socket
+      await socket.emit("new message",response) // sending new message into the room using socket
       setMessages([...messages,response])
       
     } catch (error) {
