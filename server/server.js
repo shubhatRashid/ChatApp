@@ -27,6 +27,10 @@ const {chats} = require("./data/data")
 const connectDb = require("./configs/db")
 connectDb()
 
+//HOME ROUTE //
+app.get('/',(req,res) => {
+    res.send("BackEnd connected")
+})
 // USER ROUTES
 app.use('/api/users',userRoutes)
 
