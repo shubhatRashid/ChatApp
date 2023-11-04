@@ -46,8 +46,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
           setShowNotification(true)
           setTimeout(() => {
             setShowNotification(false)
-          },2000)
-          
+            },2000)
         }
 
       }else{
@@ -60,33 +59,10 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
   // FUNCTION TO HANDLE CHANGE IN REPLY INPUT //
   const handleChange = (e) => {
     setNewMessage(e.target.value)
-    // set live typing indicator logic
-    if (!socketConnected) return;
-
-    if (!typing){
-      socket.emit("typing",selectedChat._id)
-      setTyping(true)
-    }
-
-    let lastTypingTime = new Date().getTime()
-    var timerLength = 2000;
-    setTimeout(() => {
-      var timeNow = new Date().getTime()
-      var timeDiff = timeNow - lastTypingTime
-
-      if (timeDiff >= timerLength && typing){
-        setTyping(false)
-        socket.emit("stop typing",selectedChat._id)
-      }
-    }, timerLength)
-
   }
 
   // FUNCTION TO SEND A NEW MESSAGE TO DATABASE
   const sendMessage = async() => {
-
-    socket.emit("stop typing",selectedChat._id)
-    setTyping(false)
 
     try {
       const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages`
@@ -103,9 +79,8 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
           headers:headers
       })
       response = await response.json()
-
-      await socket.emit("new message",response) // sending new message into the room using socket
       setMessages([...messages,response])
+      socket.emit("new message",response) // sending new message into the room using socket
       
     } catch (error) {
         toast.error(error.message,toastTheme)
