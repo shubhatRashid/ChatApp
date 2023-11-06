@@ -152,7 +152,7 @@ const UpdateGroup = ({show,setShow}) => {
 
             <div className='w-[80%] grid grid-cols-3 sm:grid-cols-5 grid-flow-row gap-2 my-[3%] border rounded-lg p-[2%]'>
                 {selectedChat.users.map(member => (
-                    <div key={member[1]} className='flex mx-[1%] my-[2%] border rounded-lg flex justify-around items-center text-black p-[2%] gap-2 bg-white'>
+                    <div key={member._id} className='flex mx-[1%] my-[2%] border rounded-lg flex justify-around items-center text-black p-[2%] gap-2 bg-white'>
                         <p className='Capitalize text-sm font-serif'>{member.name}</p>
                         <button  className='flex items-center font-serif text-xs' onClick={(e) => removeUser(e,member._id)}>
                             <p className='flex mx-auto'>×</p>

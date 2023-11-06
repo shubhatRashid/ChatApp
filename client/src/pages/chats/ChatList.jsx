@@ -67,7 +67,7 @@ const fetchCurrentChats = async(id) => {
       setClickedNotification(false)
     }
     fetchChats()
-  },[fetchChats,clickedNotification])
+  },[clickedNotification])
   
   return (
     <div className='flex flex-col h-[65%] border-b-4 rounded-lg'>
@@ -79,10 +79,9 @@ const fetchCurrentChats = async(id) => {
         {/*ALL CHATS OF LOGGED IN USER*/}
         <div className='flex flex-col  overflow-y-auto'>
           {loading?<ChatsLoader/>:chats.map((chat,index) => (
-            <button onClick = {() => clickChat(chat)} >
+            <button onClick = {() => clickChat(chat)} key={chat._id}>
               <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }
               name={fetchChatName(chat,user)} 
-              key = {chat._id} 
               subText = {chat.latestMessage?chat.latestMessage.content:" "}
                />
             </button>

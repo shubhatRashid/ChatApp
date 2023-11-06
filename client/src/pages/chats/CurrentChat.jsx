@@ -24,6 +24,24 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
   const [isTyping, setIsTyping] = useState(false)
   const [showNotification,setShowNotification] = useState(false)
 
+  // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
+const fetchCurrentChats = async(id) => {
+  try {
+    const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages/${id}`
+    const headers = { 
+        'Authorization': `Bearer ${user.token}` };
+    var response = await fetch(URL, {
+        method:"GET",
+        headers:headers
+    })
+    response = await response.json()
+    setMessages(response)
+ 
+  } catch (error) {
+      toast.error(error.message,toastTheme)
+  }
+}
+
   // CODE TO SETUP SOCKET.IO
   useEffect(() => {
     selectedChatCompare = selectedChat
@@ -33,18 +51,6 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
     socket.on('connected',() => setSocketConnected(true))
 
   },[selectedChat])
-
-  // PUT THE RECEIVED MESSAGE INSIDE MESSAGES STATE
-  useEffect(() => {
-
-    socket.on("message received",(newMessageReceived) => {
-      if(selectedChatCompare && selectedChatCompare._id === newMessageReceived.chat._id){
-
-        setMessages([...messages,newMessageReceived])
-      }
-    })
-
-  },[messages])
 
   // GIVE NOTIFICATION
   useEffect(() => {
@@ -61,10 +67,12 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
             },2000)
         }
 
+      }else{
+        fetchCurrentChats(newMessageReceived.chat._id)
       }
     })
 
-  },[notification])
+  },[])
 
   // FUNCTION TO HANDLE CHANGE IN REPLY INPUT //
   const handleChange = (e) => {
