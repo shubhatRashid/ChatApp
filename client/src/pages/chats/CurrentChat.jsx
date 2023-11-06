@@ -38,6 +38,18 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
   useEffect(() => {
 
     socket.on("message received",(newMessageReceived) => {
+      if(selectedChatCompare && selectedChatCompare._id === newMessageReceived.chat._id){
+
+        setMessages([...messages,newMessageReceived])
+      }
+    })
+
+  },[messages])
+
+  // GIVE NOTIFICATION
+  useEffect(() => {
+
+    socket.on("message received",(newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
 
         // give notification
@@ -49,12 +61,10 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
             },2000)
         }
 
-      }else{
-        setMessages([...messages,newMessageReceived])
       }
     })
 
-  },[notification,messages])
+  },[notification])
 
   // FUNCTION TO HANDLE CHANGE IN REPLY INPUT //
   const handleChange = (e) => {
@@ -156,7 +166,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
 
                 {/*  NOTIFICATION BUTTON */}
                 <div className={`${notification.length > 0?"flex":"hidden"} items-center bg-white pr-[2%] rounded-r-lg relative `}>
-                <span class="animate-ping absolute top-0 right-4 inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75"></span>
+                <span className="animate-ping absolute top-0 right-4 inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75"></span>
                   <div className='rounded-full text-2xl'>
                     <button onClick={() => setShowNotification(!showNotification)} trigger={"loop"}>🔔</button>
                   </div>
@@ -179,7 +189,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
                 </div>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
-                      {messages.map((message) => (
+                      {messages.map((message,index) => (
                         <ChatBubble key={message._id} message={message} position={message.sender._id===user._id?"end":"start"} />
                       ))}
                 </div>
@@ -189,10 +199,10 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
       
     {/* REPLY */}
     <form className='flex justify-around items-center my-[1%]' onSubmit={handleSubmit}>
-      <form className='flex pt-[5px] space-x-2'>
+      <div className='flex pt-[5px] space-x-2'>
         <Button  src="https://cdn.lordicon.com/fxylrfia.json" size= '30px' clickFun={(e) => {e.preventDefault()}}/>
         <Button   src="https://cdn.lordicon.com/brtridhw.json" size= '30px'  clickFun={(e) => {e.preventDefault()}} />
-      </form>
+      </div>
       
       <p className='text-2xl'>|</p>
       <input value={newMessage} onChange={handleChange}  placeholder='Message here...' type='search' className='h-[40px] w-[60%] px-[2%] rounded-lg bg-transparent'/>

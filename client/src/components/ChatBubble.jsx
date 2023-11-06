@@ -2,7 +2,7 @@ import React from 'react'
 
 const ChatBubble = ({message,position}) => {
   return (
-    <div className={`flex justify-${position} py-[0.3%] px-[0.5%] space-x-4 mr-[1%] `}>
+    <div  className={`flex justify-${position} py-[0.3%] px-[0.5%] space-x-4 mr-[1%] `}>
         <div className={`${position==="end"?"hidden":"flex"} w-[25px] h-[25px] my-[1%] ml-[2%]`}>
             <img  className= 'rounded-full border' src={message.sender.pic} alt='not found' />
         </div>

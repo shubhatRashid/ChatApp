@@ -78,7 +78,7 @@ const fetchCurrentChats = async(id) => {
 
         {/*ALL CHATS OF LOGGED IN USER*/}
         <div className='flex flex-col  overflow-y-auto'>
-          {loading?<ChatsLoader/>:chats.map((chat) => (
+          {loading?<ChatsLoader/>:chats.map((chat,index) => (
             <button onClick = {() => clickChat(chat)} >
               <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }
               name={fetchChatName(chat,user)} 
