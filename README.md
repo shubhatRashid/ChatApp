@@ -3,8 +3,7 @@
 ![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/cbf7a0d8-34e3-421d-bd97-6ccc6388a00c)
 ![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/e8bd6cdc-4acc-4b58-aba5-e03ee7cdf354)
 
-# Live @
-      https://chatappshubhat.vercel.app/
+# Live @ https://chatappshubhat.vercel.app/
 # MERN Stack Chat Application Documentation
 
 ## Table of Contents
