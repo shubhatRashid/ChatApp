@@ -4,7 +4,7 @@
 ![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/e8bd6cdc-4acc-4b58-aba5-e03ee7cdf354)
 
 # Live @
-     chatappshubhat.vercel.app/
+      https://chatappshubhat.vercel.app/
 # MERN Stack Chat Application Documentation
 
 ## Table of Contents
