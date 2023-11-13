@@ -83,6 +83,7 @@ const fetchCurrentChats = async(id) => {
               <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }
               name={fetchChatName(chat,user)} 
               subText = {chat.latestMessage?chat.latestMessage.content:" "}
+              index = {index}
                />
             </button>
           ))}

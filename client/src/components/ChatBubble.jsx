@@ -1,8 +1,10 @@
 import React from 'react'
+import {motion} from "framer-motion"
+import { slideAnimation } from '../configs/motion'
 
 const ChatBubble = ({message,position}) => {
   return (
-    <div  className={`flex justify-${position} py-[0.3%] px-[0.5%] space-x-4 mr-[1%] `}>
+    <motion.div  className={`flex justify-${position} py-[0.3%] px-[0.5%] space-x-4 mr-[1%] `} {...slideAnimation(position==="end"?"right":"left")}>
         <div className={`${position==="end"?"hidden":"flex"} w-[25px] h-[25px] my-[1%] ml-[2%]`}>
             <img  className= 'rounded-full border' src={message.sender.pic} alt='not found' />
         </div>
@@ -10,7 +12,7 @@ const ChatBubble = ({message,position}) => {
             <p className={`${position==="end"?"hidden":""} font-sans text-[8px]`}>{message.sender.name} :</p>
             <p className='font-serif text-sm '>{message.content}</p>
         </div>
-    </div>
+    </motion.div>
     )
 }
 

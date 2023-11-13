@@ -17,7 +17,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path = "/" element = {user?<Chats />:<LoginSignUp/>}/>
+        <Route path = "/" element = {!user?<LoginSignUp/>:<Chats />}/>
+        <Route path = "/chats" element = {user?<Chats />:<LoginSignUp/>}/>
       </Routes>
       <div className='z-10'>
       <ToastContainer

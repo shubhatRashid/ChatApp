@@ -80,8 +80,8 @@ const fetchCurrentChats = async(id) => {
             {/* CREATE GROUP BUTTON */}
             <GroupIcon clickFun = {() =>setShowCreateGroup(true)} groupName="Create" src='https://static.thenounproject.com/png/79377-200.png' />
             { loading? <GroupLoader />:
-              groups.map((group) => (
-                <GroupIcon clickFun={() => accessGroup(group)} groupName={group.chatName} key = {group._id} src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+              groups.map((group,index) => (
+                <GroupIcon clickFun={() => accessGroup(group)} index={index} groupName={group.chatName} key = {group._id} src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
               ))
             }
         </div>

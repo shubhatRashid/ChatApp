@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { toastTheme } from '../../constants';
+import {motion} from "framer-motion"
+import { slideAnimation } from '../../configs/motion';
 
 const SignUp = () => {
    // INITIAL VALUES FOR FORM IN FORMIK
@@ -89,7 +91,7 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit} className='flex flex-wrap justify-between'>
 
                     {/*NAME INPUT*/}
-                    <div className='flex flex-col mt-[5%] min-w-[100%]'>
+                    <motion.div className='flex flex-col mt-[5%] min-w-[100%]' {...slideAnimation('left',0.2)}>
                         <p className='font-serif m-[1%]  text-xl'>Name :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -101,10 +103,10 @@ const SignUp = () => {
                             placeholder='Please enter Your Name'
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.name && touched.name && errors.name}</p> 
-                    </div>
+                    </motion.div>
 
                     {/*EMAIL INPUT*/}
-                    <div className='flex flex-col my-[5%] min-w-[100%]'>
+                    <motion.div className='flex flex-col my-[5%] min-w-[100%]' {...slideAnimation('left',0.3)}>
                         <p className='font-serif m-[1%]  text-xl'>Email Address :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -116,10 +118,10 @@ const SignUp = () => {
                             placeholder='Please enter an email'
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.email && touched.email && errors.email}</p> 
-                    </div>
+                    </motion.div>
 
                     {/*PASSWORD INPUT*/}
-                    <div className='flex flex-col mb-[5%] min-w-[45%]'>
+                    <motion.div className='flex flex-col mb-[5%] min-w-[45%]' {...slideAnimation('left',0.4)}>
                         <p className='font-serif m-[1%] text-xl'>Password :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -131,10 +133,10 @@ const SignUp = () => {
                             placeholder='Enter your password'
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.password && touched.password && errors.password}</p>
-                    </div>
+                    </motion.div>
 
                     {/*CONFIRM PASSWORD INPUT*/}
-                    <div className='flex flex-col mb-[5%] min-w-[45%]'>
+                    <motion.div className='flex flex-col mb-[5%] min-w-[45%]' {...slideAnimation('right',0.5)}>
                         <p className='font-serif m-[1%] text-xl'>Confirm Password :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -146,15 +148,16 @@ const SignUp = () => {
                             placeholder='Confirm your password'
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}</p>
-                    </div>
+                    </motion.div>
 
                     {/*SUBMIT BUTTON*/}
-                    <button 
+                    <motion.button 
+                    {...slideAnimation('left',0.6)}
                     type="submit" 
                     disabled={isSubmitting}
                     className='font-serif mx-[1%] mb-[2%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg max-h-[50px] '>
                         Submit
-                    </button>
+                    </motion.button>
                 </form>
             )}
         </Formik>

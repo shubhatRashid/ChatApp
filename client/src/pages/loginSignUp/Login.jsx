@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { toastTheme } from '../../constants';
+import {motion} from "framer-motion"
+import { slideAnimation } from '../../configs/motion';
 
 const Login = () => {
    // FOR NAVIGATING BETWEEN DIFF ROUTES
@@ -40,7 +42,7 @@ const Login = () => {
             // For POPUPS
             toast.success("Logged in...", toastTheme);
             setTimeout(()=>{ window.location.reload()},500)
-           
+            navigate("/chats")
      
         // IF EMAIL OR PASSWORD IS WRONG
         }else{
@@ -74,7 +76,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit} className='flex flex-col items-start'>
 
                     {/* EMAIL INPUT */}
-                    <div className='flex flex-col my-[5%] min-w-[100%]'>
+                    <motion.div className='flex flex-col my-[5%] min-w-[100%]' {...slideAnimation("left")}>
                         <p className='font-serif m-[1%]  text-xl'>Email Address :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -86,10 +88,10 @@ const Login = () => {
                             placeholder='Please enter an email'
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.email && touched.email && errors.email}</p> 
-                    </div>
+                    </motion.div>
 
                     {/* PASSWORD INPUT */}
-                    <div className='flex flex-col mb-[5%] min-w-[100%]'>
+                    <motion.div className='flex flex-col mb-[5%] min-w-[100%]' {...slideAnimation('left',0.2)}>
                         <p className='font-serif m-[1%] text-xl'>Password :</p>
                         <input
                             className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
@@ -101,15 +103,16 @@ const Login = () => {
                             placeholder='Enter your password'
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.password && touched.password && errors.password}</p>
-                    </div>
+                    </motion.div>
 
                     {/* SUBMIT BUTTON */}
-                    <button 
+                    <motion.button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className='font-serif mx-[1%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg'>
+                    className='font-serif mx-[1%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg'
+                    {...slideAnimation("left",0.3)}>
                         Submit
-                    </button>
+                    </motion.button>
                 </form>
             )}
         </Formik>

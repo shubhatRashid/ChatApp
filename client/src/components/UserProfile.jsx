@@ -1,9 +1,14 @@
 import React from 'react'
 import Button from './Button'
+import {motion} from "framer-motion"
+import { headTextAnimation } from '../configs/motion';
+
 const UserProfile = ({user, showSidebar}) => {
 
   return (
-    <div className='flex justify-between items-center h-[10%] border-b-4 rounded-lg mt-[1%]'>
+    <motion.div 
+      className='flex justify-between items-center h-[10%] border-b-4 rounded-lg mt-[1%]'
+      {...headTextAnimation}>
         <div className='flex min-w-[75%] ml-[3%] justify-start'>
             <div className='w-[50px] h-[50px] ml-[2%]'>
               <img  className= 'rounded-full' src={user.pic} alt='' />
@@ -15,7 +20,7 @@ const UserProfile = ({user, showSidebar}) => {
         <div className='flex sm:hidden flex items-center justify-end'>
             <Button   src="https://cdn.lordicon.com/qjezzrrz.json" clickFun={showSidebar} size='45px' />
         </div>
-    </div>
+    </motion.div>
   )
 }
 

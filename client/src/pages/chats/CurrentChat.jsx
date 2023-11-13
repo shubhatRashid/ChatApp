@@ -10,6 +10,9 @@ import io from "socket.io-client"
 import Lottie from "react-lottie"
 import animationData from "../../assets/typing.json"
 import Chat from '../../components/Chat'
+import {motion} from "framer-motion"
+import { slideAnimation } from '../../configs/motion'
+
 
 // VARIABLES FOR SOCKET CONNECTION //
 const ENDPOINT = process.env.REACT_APP_SERVER_PORT
@@ -132,11 +135,14 @@ const fetchCurrentChats = async(id) => {
   return (
     selectedChat ?
     
-    <div className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between min-w-[40%] w-screen  bg-green-50 my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}>
+    <motion.div 
+      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between min-w-[40%] w-screen  bg-green-50 my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
+      {...slideAnimation('right',0.2)}
+    >
       <UpdateGroup show={showUpdateDiv} setShow={setShowUpdateDiv} />
 
     {/*ALL NOTIFICATIONS OF LOGGED IN USER*/}
-    <div className={`${showNotification?"flex":"hidden"} flex-col  overflow-y-auto absolute top -20 left-20 right-20 z-10 border rounded-lg bg-white`}>
+    <div className={`${showNotification?"flex":"hidden"} flex-col  overflow-y-auto absolute top-20 left-20 right-20 z-10 border rounded-lg bg-white`}>
         {!notification.length?"No notifications":notification.map((notification) => (
           <button onClick={() =>clickNotif(notification)}>
             <Chat src={notification.sender.pic }
@@ -149,18 +155,18 @@ const fetchCurrentChats = async(id) => {
     </div>
 
     {/* SEARCH IN CHAT */}
-    <div className='flex my-[1%]'>
+    <motion.div className='flex my-[1%]' {...slideAnimation("down")}>
         <Search placeholder='Search in chat...' />
         {/* SIDE BAR SHOW BUTTON */}
         <div className='flex sm:hidden flex items-center justify-end w-[15%] bg-white'>
             <Button   src="https://cdn.lordicon.com/qjezzrrz.json" clickFun={showSidebar} size='45px' />
         </div>
-    </div>
+    </motion.div>
     
     <div className='border h-[80%]  rounded-lg bg-white'>
 
           {/* NAME AND PHOTO */}
-          <div className='flex items-center justify-between  border-b-4 rounded-lg h-[15%] pr-[1%]'>
+          <motion.div className='flex items-center justify-between  border-b-4 rounded-lg h-[15%] pr-[1%]' {...slideAnimation('down')}>
                 <div className='flex items-center  my-[2%] ml-[2%]'>
                   <img  className= 'rounded-full w-[50px] h-[50px]' src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' alt='' />
                   <h2 className='font-serif text-sm ml-[10%] w-[200px] capitalize font-bold ' >{fetchChatName(selectedChat,user)}</h2>
@@ -180,10 +186,10 @@ const fetchCurrentChats = async(id) => {
                   </div>
                 </div>
                 
-          </div>
+          </motion.div>
          
           {/* CURRENT CHATS */}
-          <div className='h-[85%] flex flex-col-reverse overflow-y-auto'>
+          <motion.div className='h-[85%] flex flex-col-reverse overflow-y-auto' {...slideAnimation('up')}>
                 <div>
                   {isTyping?
                     <div>
@@ -201,12 +207,12 @@ const fetchCurrentChats = async(id) => {
                         <ChatBubble key={message._id} message={message} position={message.sender._id===user._id?"end":"start"} />
                       ))}
                 </div>
-          </div>
+          </motion.div>
     </div>
     
       
     {/* REPLY */}
-    <form className='flex justify-around items-center my-[1%]' onSubmit={handleSubmit}>
+    <motion.form className='flex justify-around items-center my-[1%]' onSubmit={handleSubmit} {...slideAnimation('left')}>
       <div className='flex pt-[5px] space-x-2'>
         <Button  src="https://cdn.lordicon.com/fxylrfia.json" size= '30px' clickFun={(e) => {e.preventDefault()}}/>
         <Button   src="https://cdn.lordicon.com/brtridhw.json" size= '30px'  clickFun={(e) => {e.preventDefault()}} />
@@ -218,15 +224,18 @@ const fetchCurrentChats = async(id) => {
        <p>Send</p>
        <p>➡️</p>
       </button>
-    </form>
+    </motion.form>
 
-</div>
+</motion.div>
 
 :
-    <div className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-center items-center min-w-[40%] w-screen  bg-white  my-[2%] mx-[1%] rounded-lg ml-[2%]  relative`}>
+    <motion.div 
+      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-center items-center min-w-[40%] w-screen  bg-white  my-[2%] mx-[1%] rounded-lg ml-[2%]  relative`}
+      {...slideAnimation('right',0.2)}
+    >
       <img className='max-w-full h-auto rounded-lg bg-transparent mb-[4%]' src= "https://i.pinimg.com/originals/07/39/61/0739613927cfc7c51d6b352119cd7294.gif" alt=''/>
       <p className={`${isStart?"flex":"hidden"} absolute z-10 bottom-[10%] left-[40% border rounded-lg p-[3%] font-serif text-lg font-bold bg-white text-yellow-500`}>Please select a chat to begin ...</p>
-    </div>
+    </motion.div>
   )
 }
 

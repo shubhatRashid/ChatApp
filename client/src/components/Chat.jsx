@@ -1,8 +1,10 @@
 import React from 'react'
+import {motion} from "framer-motion"
+import { slideAnimation } from '../configs/motion';
 
-const Chat = ({src,name,subText}) => {
+const Chat = ({src,name,subText,index}) => {
   return (
-    <div className='flex rounded-lg mx-[2%] bg-white  my-[2%]'>
+    <motion.div className='flex rounded-lg mx-[2%] bg-white  my-[2%]' {...slideAnimation("up",index/4)}>
         <div className='w-[15%] h-[15%] my-[2%] ml-[2%]'>
             <img  className= 'rounded-full' src={src} alt='' />
         </div>
@@ -10,7 +12,7 @@ const Chat = ({src,name,subText}) => {
             <h2 className='font-serif text-sm capitalize'>{name}</h2>
             <p className='font-serif text-xs text-gray-400 italic'>{subText.substring(0,40)} ...</p>
         </div>
-    </div>
+    </motion.div>
   )
 }
 
