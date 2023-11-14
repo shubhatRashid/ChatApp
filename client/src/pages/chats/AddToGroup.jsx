@@ -101,7 +101,9 @@ const AddToGroup = ({show,setShow}) => {
     }
     return (
         
-        <div className={`resize absolute z-10 ${show?"flex":"hidden"} flex-col justify-center items-center mx-[20%] bg-[#116D6E] rounded-lg border min-w-[40%] min-h-[45%] py-[5%]`}>
+        <div 
+            className={`resize absolute z-20 ${show?"flex":"hidden"} flex-col justify-center items-center mx-[20%] 
+            bg-[#116D6E] rounded-lg border min-w-[40%] min-h-[45%] py-[5%] text-black`}>
             
             {/* BUTTON TO CLOSE THE DIV */}
             <button onClick={()=>{setShow(false)}} className='absolute flex items-center font-serif text-xs absolute top-0 right-0 border rounded-full border-amber-400 w-[15px] h-[15px] m-[1%]'>
@@ -129,7 +131,7 @@ const AddToGroup = ({show,setShow}) => {
             </div>
 
             {/* SEARCH RESULTS */}
-            <div className={`${showResults?"flex":"hidden"} text-black w-[80%] grid grid-rows-3  grid-flow-col gap-2 mt-[3%]`}>
+            <div className={`${showResults?"flex":"hidden"} text-black w-[80%] h-[200px] overflow-auto flex-col mt-[3%] text-white`}>
                     {loader?<ChatsLoader/> :data.map((value) =>(
                         <button key={value._id} className='' onClick={() => selectUser(value.name,value._id)}>
                              <Chat name= {value.name} key={value._id} src={value.pic} subText={value.email}/>

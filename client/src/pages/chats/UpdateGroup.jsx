@@ -146,7 +146,10 @@ const UpdateGroup = ({show,setShow}) => {
 
     return (
         
-        <div  className={`absolute z-10 ${show?"flex":"hidden"} flex-col top-20 left-20 right-20 justify-center items-center bg-[#116D6E] rounded-lg border min-w-[40%] min-h-[45%] py-[5%]`}>
+        <div  
+            className={`absolute z-20 ${show?"flex":"hidden"} flex-col top-20 left-20 
+                right-20 justify-center items-center bg-[#116D6E] rounded-lg border 
+                min-w-[80%] min-h-[45%] py-[5%] text-black`}>
             
             {/* DISPLAY MEMBERS*/}
 
@@ -186,7 +189,7 @@ const UpdateGroup = ({show,setShow}) => {
             </div>
 
             {/* SEARCH RESULTS */}
-            <div className={`${showResults?"flex":"hidden"} text-black w-[80%] grid grid-rows-3  grid-flow-col gap-2 mt-[3%]`}>
+            <div className={`${showResults?"flex":"hidden"} text-black w-[80%] h-[300px] overflow-auto flex-col mt-[3%] text-white`}>
                     {loader?<ChatsLoader/> :data.map((value) =>(
                         <button key={value._id} className='' onClick={() => addUser(value.name,value._id)}>
                              <Chat name= {value.name} key={value._id} src={value.pic} subText={value.email}/>
