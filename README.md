@@ -1,7 +1,8 @@
 # ChatApp
 
-![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/cbf7a0d8-34e3-421d-bd97-6ccc6388a00c)
-![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/e8bd6cdc-4acc-4b58-aba5-e03ee7cdf354)
+![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/91ba149a-8103-4649-9ffd-00bf3b224499)
+![image](https://github.com/shubhatRashid/ChatApp/assets/106548827/4a6aece8-f34e-43fb-802b-693a709c686a)
+
 
 # Live @ https://chatappshubhat.vercel.app/
 # MERN Stack Chat Application Documentation
