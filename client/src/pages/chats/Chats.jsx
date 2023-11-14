@@ -58,7 +58,7 @@ const Chats = () => {
 
         {/* SIDEBAR FOR QUICK ACCESS */}
         <motion.div 
-          className={`${seeNav?'flex':'hidden'} sm:flex bg-[#116D6E] my-[2%] mx-[2%] rounded-lg ml-[2%] px-[1%] border`}
+          className={`${seeNav?'flex':'hidden'} sm:flex my-[2%] mx-[2%] rounded-lg ml-[2%] px-[1%] border`}
           {...slideAnimation('left')}
         >
             <Sidebar seeNav={seeNav} homeFun= {homeFun} chatFun={chatFun} searchFun = {searchFun} logoutFun = {logoutFun} />
@@ -66,7 +66,7 @@ const Chats = () => {
 
         {/* ALL CHATS DIV */}
         <motion.div 
-          className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-green-50 w-[550px] px-[1%] py-[1%] border`}
+          className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-black text-white w-[550px] px-[1%] py-[1%] border`}
           {...slideAnimation('left',0.1)}>
             <UserProfile user={user} showSidebar={showSidebar}/>
             <Groups  setStart = {setStart} chatFun={chatFun}/>

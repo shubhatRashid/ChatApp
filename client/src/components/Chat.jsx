@@ -4,7 +4,7 @@ import { slideAnimation } from '../configs/motion';
 
 const Chat = ({src,name,subText,index}) => {
   return (
-    <motion.div className='flex rounded-lg mx-[2%] bg-white  my-[2%]' {...slideAnimation("up",index/4)}>
+    <motion.div className='flex rounded-lg mx-[2%] bg-[#232D3F]  my-[2%]' {...slideAnimation("up",index/4)}>
         <div className='w-[15%] h-[15%] my-[2%] ml-[2%]'>
             <img  className= 'rounded-full' src={src} alt='' />
         </div>

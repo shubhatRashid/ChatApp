@@ -84,7 +84,11 @@ const fetchCurrentChats = async(id) => {
 
   // FUNCTION TO SEND A NEW MESSAGE TO DATABASE
   const sendMessage = async() => {
-
+    if (!newMessage){
+      toast.warn("Type Something to send",toastTheme)
+      return
+    }
+    
     try {
       const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages`
       const body = {
@@ -136,7 +140,7 @@ const fetchCurrentChats = async(id) => {
     selectedChat ?
     
     <motion.div 
-      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between min-w-[40%] w-screen  bg-green-50 my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
+      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between min-w-[40%] w-screen  bg-black my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
       {...slideAnimation('right',0.2)}
     >
       <UpdateGroup show={showUpdateDiv} setShow={setShowUpdateDiv} />
@@ -155,21 +159,21 @@ const fetchCurrentChats = async(id) => {
     </div>
 
     {/* SEARCH IN CHAT */}
-    <motion.div className='flex my-[1%]' {...slideAnimation("down")}>
+    <motion.div className='flex my-[1%] gap-2' {...slideAnimation("down")}>
         <Search placeholder='Search in chat...' />
         {/* SIDE BAR SHOW BUTTON */}
-        <div className='flex sm:hidden flex items-center justify-end w-[15%] bg-white'>
+        <div className='flex sm:hidden flex items-center justify-center w-[10%] bg-[#232D3F] rounded-lg'>
             <Button   src="https://cdn.lordicon.com/qjezzrrz.json" clickFun={showSidebar} size='45px' />
         </div>
     </motion.div>
     
-    <div className='border h-[80%]  rounded-lg bg-white'>
+    <div className='border h-[80%]  rounded-lg bg-[#232D3F]'>
 
           {/* NAME AND PHOTO */}
           <motion.div className='flex items-center justify-between  border-b-4 rounded-lg h-[15%] pr-[1%]' {...slideAnimation('down')}>
                 <div className='flex items-center  my-[2%] ml-[2%]'>
                   <img  className= 'rounded-full w-[50px] h-[50px]' src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg' alt='' />
-                  <h2 className='font-serif text-sm ml-[10%] w-[200px] capitalize font-bold ' >{fetchChatName(selectedChat,user)}</h2>
+                  <h2 className='font-serif text-sm ml-[10%] w-[200px] capitalize font-bold text-white ' >{fetchChatName(selectedChat,user)}</h2>
                 </div>
                 {
                   selectedChat.isGroupChat && selectedChat.groupAdmin._id===user._id? 
@@ -213,14 +217,14 @@ const fetchCurrentChats = async(id) => {
       
     {/* REPLY */}
     <motion.form className='flex justify-around items-center my-[1%]' onSubmit={handleSubmit} {...slideAnimation('left')}>
-      <div className='flex pt-[5px] space-x-2'>
+      <div className='flex p-[5px] space-x-2 bg-[#232D3F] rounded-lg '>
         <Button  src="https://cdn.lordicon.com/fxylrfia.json" size= '30px' clickFun={(e) => {e.preventDefault()}}/>
         <Button   src="https://cdn.lordicon.com/brtridhw.json" size= '30px'  clickFun={(e) => {e.preventDefault()}} />
       </div>
       
       <p className='text-2xl'>|</p>
-      <input value={newMessage} onChange={handleChange}  placeholder='Message here...' type='search' className='h-[40px] w-[60%] px-[2%] rounded-lg bg-transparent'/>
-      <button type="submit" className='flex items-center bg-sky-500 h-[30px] px-[1%] mx-[1%] rounded-lg font-serif text-white'>
+      <input value={newMessage} onChange={handleChange}  placeholder='Message here...' type='search' className='h-[40px] w-[60%] px-[2%] rounded-lg bg-[#232D3F] text-white'/>
+      <button type="submit" className='flex items-center bg-[#232D3F] h-[30px] px-[1%] mx-[1%] rounded-lg font-serif text-white'>
        <p>Send</p>
        <p>➡️</p>
       </button>
