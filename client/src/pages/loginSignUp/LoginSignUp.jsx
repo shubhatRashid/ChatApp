@@ -22,7 +22,7 @@ const LoginSignUp = () => {
   return (
 
     // LOGIN SIGNUP SCREEN //
-    <div className='flex mx-auto '>
+    <div className={`flex mx-auto bg-[#232D3F] text-blue-500 h-screen`}>
 
         {/* LOGIN SIGNUP FORM AREA */}
         <div 
@@ -32,7 +32,7 @@ const LoginSignUp = () => {
           {/* HEADING BRAND AND NAME */}
           <motion.div className=' flex flex-col items-center' {...headTextAnimation}>
               <img 
-                src='https://www.pngmart.com/files/16/Speech-Chat-Icon-Transparent-PNG.png' 
+                src={chaticon} 
                 alt='brand' 
                 className='w-[15%] mr-[2%]  flex md:hidden'
                 />
@@ -41,7 +41,7 @@ const LoginSignUp = () => {
           </motion.div>
           
           {/* FORM AREA */}
-          <div className='my-[10%] h-[50px]'>
+          <div className='my-[10%] h-[50px] '>
 
             {/* TABS */}
             <div className='flex font-serif h-[50px]'>

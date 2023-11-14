@@ -155,7 +155,7 @@ const SignUp = () => {
                     {...slideAnimation('left',0.6)}
                     type="submit" 
                     disabled={isSubmitting}
-                    className='font-serif mx-[1%] mb-[2%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg max-h-[50px] '>
+                    className='text-black font-serif mx-[1%] mb-[2%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg max-h-[50px] '>
                         Submit
                     </motion.button>
                 </form>

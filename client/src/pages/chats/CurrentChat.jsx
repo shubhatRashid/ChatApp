@@ -12,7 +12,7 @@ import animationData from "../../assets/typing.json"
 import Chat from '../../components/Chat'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion'
-
+const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
 // VARIABLES FOR SOCKET CONNECTION //
 const ENDPOINT = process.env.REACT_APP_SERVER_PORT
@@ -234,11 +234,23 @@ const fetchCurrentChats = async(id) => {
 
 :
     <motion.div 
-      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  flex-col justify-center items-center min-w-[40%] w-screen  bg-white  my-[2%] mx-[1%] rounded-lg ml-[2%]  relative`}
+      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'}  
+      flex-col justify-center items-center min-w-[40%] 
+      w-screen my-[2%] mx-[1%] rounded-lg ml-[2%]  relative border bg-black`}
       {...slideAnimation('right',0.2)}
     >
-      <img className='max-w-full h-auto rounded-lg bg-transparent mb-[4%]' src= "https://i.pinimg.com/originals/07/39/61/0739613927cfc7c51d6b352119cd7294.gif" alt=''/>
-      <p className={`${isStart?"flex":"hidden"} absolute z-10 bottom-[10%] left-[40% border rounded-lg p-[3%] font-serif text-lg font-bold bg-white text-yellow-500`}>Please select a chat to begin ...</p>
+      <img 
+        className='max-w-full h-auto rounded-lg mb-[4%]' 
+        src= "https://cdn.dribbble.com/userupload/10543014/file/original-4703d0ba72b72f87fa49a618a24a1f6d.gif" 
+        alt='not found'
+        />
+      <p 
+        className={`${isStart?"flex":"hidden"} absolute z-10 bottom-[10%] 
+          left-[40% border rounded-lg p-[3%] font-serif font-serif ${gradient} 
+          bg-clip-text  text-transparent`}
+          >
+        Please select a chat to begin ...
+      </p>
     </motion.div>
   )
 }
