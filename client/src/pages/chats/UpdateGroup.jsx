@@ -147,8 +147,8 @@ const UpdateGroup = ({show,setShow}) => {
     return (
         
         <div  
-            className={`absolute z-20 ${show?"flex":"hidden"} flex-col top-20 left-20 
-                right-20 justify-center items-center bg-[#116D6E] rounded-lg border 
+            className={`absolute z-20 ${show?"flex":"hidden"} flex-col top-20 left-5 right-5
+                justify-center items-center bg-[#116D6E] rounded-lg border 
                 min-w-[80%] min-h-[45%] py-[5%] text-black`}>
             
             {/* DISPLAY MEMBERS*/}
