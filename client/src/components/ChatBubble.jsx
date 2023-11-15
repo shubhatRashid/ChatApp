@@ -4,7 +4,7 @@ import { slideAnimation } from '../configs/motion'
 
 const ChatBubble = ({message,position}) => {
   return (
-    <motion.div  className={`flex justify-${position} py-[0.3%] px-[0.5%] space-x-4 mr-[1%] `} {...slideAnimation('up')}>
+    <div  className={`flex justify-${position} py-[0.3%] px-[0.5%] space-x-4 mr-[1%] `} >
         <div className={`${position==="end"?"hidden":"flex"} flex-col w-[25px] h-[25px] my-[1%] ml-[2%]`}>
             <img  className= 'rounded-full border' src={message.sender.pic} alt='not found'/>
         </div>
@@ -12,7 +12,7 @@ const ChatBubble = ({message,position}) => {
             <p className={`${position==="end"?"hidden":""} font-sans text-[8px]`}>{message.sender.name} :</p>
             <p className='font-serif text-sm text-wrap'>{message.content}</p>
         </div>
-    </motion.div>
+    </div>
     )
 }
 

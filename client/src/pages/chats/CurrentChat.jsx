@@ -56,7 +56,7 @@ const fetchCurrentChats = async(id) => {
   // GIVE NOTIFICATION OR DISPLAY MESSAGE
   useEffect(() => {
 
-    socket.on("message received",(newMessageReceived) => {
+    socket.on("message received",async (newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
         // give notification
         if (!notification.includes(newMessageReceived)){
@@ -74,7 +74,7 @@ const fetchCurrentChats = async(id) => {
         }
 
       }else{
-        fetchCurrentChats(newMessageReceived.chat._id)
+        await fetchCurrentChats(newMessageReceived.chat._id)
         new Audio(received).play()
       }
     })
