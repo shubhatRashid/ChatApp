@@ -68,9 +68,12 @@ const fetchCurrentChats = async(id) => {
         count += 1
       }
     })
-    fetchChats()
+    if (count> 0){
+      fetchChats()
+    }
     return count
   }
+  
   useEffect(() =>{
     if (clickedNotification){
       clickChat(selectedChat)

@@ -7,11 +7,10 @@ import UpdateGroup from './UpdateGroup'
 import { toast } from 'react-toastify';
 import { fetchChatName, toastTheme } from '../../constants';
 import io from "socket.io-client"
-import animationData from "../../assets/typing.json"
 import Chat from '../../components/Chat'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion'
-import {send,received,notify} from "../../assets"
+import {received,notify} from "../../assets"
 const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
 // VARIABLES FOR SOCKET CONNECTION //
@@ -56,7 +55,7 @@ const fetchCurrentChats = async(id) => {
   // GIVE NOTIFICATION OR DISPLAY MESSAGE
   useEffect(() => {
 
-    socket.on("message received",async (newMessageReceived) => {
+    socket.on("message received",(newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
         // give notification
         if (!notification.includes(newMessageReceived)){
@@ -74,7 +73,7 @@ const fetchCurrentChats = async(id) => {
         }
 
       }else{
-        await fetchCurrentChats(newMessageReceived.chat._id)
+        fetchCurrentChats(newMessageReceived.chat._id)
         new Audio(received).play()
       }
     })
