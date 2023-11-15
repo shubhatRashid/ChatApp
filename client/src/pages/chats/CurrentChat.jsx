@@ -7,11 +7,11 @@ import UpdateGroup from './UpdateGroup'
 import { toast } from 'react-toastify';
 import { fetchChatName, toastTheme } from '../../constants';
 import io from "socket.io-client"
-import Lottie from "react-lottie"
 import animationData from "../../assets/typing.json"
 import Chat from '../../components/Chat'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion'
+import {send,received,notify} from "../../assets"
 const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
 // VARIABLES FOR SOCKET CONNECTION //
@@ -23,8 +23,6 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
   const [showUpdateDiv,setShowUpdateDiv] = useState(false)
   const [newMessage,setNewMessage] = useState("")
   const [socketConnected,setSocketConnected] = useState(false)
-  const [typing, setTyping] = useState(false)
-  const [isTyping, setIsTyping] = useState(false)
   const [showNotification,setShowNotification] = useState(false)
 
   // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
@@ -55,14 +53,19 @@ const fetchCurrentChats = async(id) => {
 
   },[selectedChat])
 
-  // GIVE NOTIFICATION
+  // GIVE NOTIFICATION OR DISPLAY MESSAGE
   useEffect(() => {
 
     socket.on("message received",(newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
-
         // give notification
         if (!notification.includes(newMessageReceived)){
+
+          new Audio(notify).play()
+            .catch(error => {
+                console.info('User has not interacted with document yet.');
+            });
+
           setNotification([...notification,newMessageReceived])
           setShowNotification(true)
           setTimeout(() => {
@@ -71,6 +74,7 @@ const fetchCurrentChats = async(id) => {
         }
 
       }else{
+        new Audio(received).play()
         fetchCurrentChats(newMessageReceived.chat._id)
       }
     })
@@ -84,6 +88,7 @@ const fetchCurrentChats = async(id) => {
 
   // FUNCTION TO SEND A NEW MESSAGE TO DATABASE
   const sendMessage = async() => {
+    
     if (!newMessage){
       toast.warn("Type Something to send",toastTheme)
       return
@@ -118,21 +123,12 @@ const fetchCurrentChats = async(id) => {
     sendMessage()
     setNewMessage("")
   }
-  
-  // FUNCTION FOR REACT LOTTIE ANIMATION
-  const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
 
   // FUNCTION FOR NOTIFICATION CLICK //
   const clickNotif = (notification) => {
     setSelectedChat(notification.chat)
     setShowNotification(!showNotification)
+    setNotification([])
     setClickedNotification(true)
   }
 
@@ -146,7 +142,7 @@ const fetchCurrentChats = async(id) => {
       <UpdateGroup show={showUpdateDiv} setShow={setShowUpdateDiv} />
 
     {/*ALL NOTIFICATIONS OF LOGGED IN USER*/}
-    <div className={`${showNotification?"flex":"hidden"} flex-col  overflow-y-auto absolute top-20 left-20 right-20 z-10 border rounded-lg bg-white`}>
+    <div className={`${showNotification?"flex":"hidden"} flex-col  overflow-y-auto absolute top-20 left-5 right-5 z-10 border rounded-lg bg-white`}>
         {!notification.length?"No notifications":notification.map((notification) => (
           <button onClick={() =>clickNotif(notification)}>
             <Chat src={notification.sender.pic }
@@ -183,7 +179,7 @@ const fetchCurrentChats = async(id) => {
                 }
 
                 {/*  NOTIFICATION BUTTON */}
-                <div className={`${notification.length > 0?"flex":"hidden"} items-center bg-white pr-[2%] rounded-r-lg relative `}>
+                <div className={`${notification.length > 0?"flex":"hidden"} items-center  pr-[2%] rounded-r-lg relative `}>
                 <span className="animate-ping absolute top-0 right-4 inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75"></span>
                   <div className='rounded-full text-2xl'>
                     <button onClick={() => setShowNotification(!showNotification)} trigger={"loop"}>🔔</button>
@@ -194,17 +190,6 @@ const fetchCurrentChats = async(id) => {
          
           {/* CURRENT CHATS */}
           <motion.div className='h-[85%] flex flex-col-reverse overflow-y-auto' {...slideAnimation('up')}>
-                <div>
-                  {isTyping?
-                    <div>
-                        <Lottie 
-                          options={defaultOptions}
-                          width={120}
-                          style={{marginBottom:15,marginLeft:30}}
-                        />
-                    </div>
-                  :<></>}
-                </div>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
                       {messages.map((message,index) => (

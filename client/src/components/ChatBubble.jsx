@@ -10,7 +10,7 @@ const ChatBubble = ({message,position}) => {
         </div>
         <div className={`${position==="start"?"bg-black text-white":"bg-white text-black"} border  rounded-lg ${position==="end"?"rounded-tr-none":"rounded-tl-none"} mx-[2%]  my-[0.5%] p-[1%] max-w-[70%]`}>
             <p className={`${position==="end"?"hidden":""} font-sans text-[8px]`}>{message.sender.name} :</p>
-            <p className='font-serif text-sm '>{message.content}</p>
+            <p className='font-serif text-sm text-wrap'>{message.content}</p>
         </div>
     </motion.div>
     )

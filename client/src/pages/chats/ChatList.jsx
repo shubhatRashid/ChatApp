@@ -60,7 +60,17 @@ const fetchCurrentChats = async(id) => {
     await fetchCurrentChats(chat._id)
     chatFun()
   }
-
+  
+  const checkUnread = (id) => {
+    var count = 0
+    notification.map(notif => {
+      if (notif.chat._id === id){
+        count += 1
+      }
+    })
+    fetchChats()
+    return count
+  }
   useEffect(() =>{
     if (clickedNotification){
       clickChat(selectedChat)
@@ -68,7 +78,8 @@ const fetchCurrentChats = async(id) => {
     }
     fetchChats()
   },[clickedNotification])
-  
+
+
   return (
     <div className='flex flex-col h-[65%] border-b-4 rounded-lg'>
         {/* Label */}
@@ -84,6 +95,7 @@ const fetchCurrentChats = async(id) => {
               name={fetchChatName(chat,user)} 
               subText = {chat.latestMessage?chat.latestMessage.content:" "}
               index = {index}
+              count={checkUnread(chat._id)}
                />
             </button>
           ))}
