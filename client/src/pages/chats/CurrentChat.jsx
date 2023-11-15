@@ -74,8 +74,8 @@ const fetchCurrentChats = async(id) => {
         }
 
       }else{
-        new Audio(received).play()
         fetchCurrentChats(newMessageReceived.chat._id)
+        new Audio(received).play()
       }
     })
 
