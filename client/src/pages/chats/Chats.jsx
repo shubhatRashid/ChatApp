@@ -15,7 +15,7 @@ import {slideAnimation} from "../../configs/motion"
 const Chats = () => {
 
   // USER'S INFO //
-  const {user,notification,setNotification,selectedChat} = ChatState()
+  const {user,setSelectedChat} = ChatState()
 
   // STATE VARIABLES
   const [searchDrawer,setSearchDrawer] = useState(false) // determines if search Drawer is visible //
@@ -31,6 +31,7 @@ const Chats = () => {
   const homeFun = () =>{
     setSeeChat(true)
     setUsersDiv(true)
+    setSelectedChat()
   }
 
   const logoutFun = () => {
@@ -48,7 +49,9 @@ const Chats = () => {
    
 
   const searchFun = () => {setSearchDrawer(!searchDrawer)}
-  const showSidebar = () => {setSeeNav(!seeNav)}
+  const showSidebar = () => {
+    setSeeNav(!seeNav)
+  }
 
   return (
     <div className='chatsPage flex flex-row justify-center h-screen'>
