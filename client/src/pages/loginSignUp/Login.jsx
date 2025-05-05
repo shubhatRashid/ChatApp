@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { slideAnimation } from '../../configs/motion';
 const Login = () => {
    // FOR NAVIGATING BETWEEN DIFF ROUTES
    const navigate = useNavigate()
+   const [showPass,setShowPass] = useState(false)
 
    //INITIAL VALUES FOR FORM IN FORMIK
    const  initialValues={ email: '', password: '' }
@@ -71,38 +72,42 @@ const Login = () => {
                 handleBlur,
                 handleSubmit,
                 isSubmitting,
-                /* and other goodies */
+
             }) => (
                 <form onSubmit={handleSubmit} className='flex flex-col items-start'>
 
                     {/* EMAIL INPUT */}
                     <motion.div className='flex flex-col my-[5%] min-w-[100%]' {...slideAnimation("left")}>
-                        <p className='font-serif m-[1%]  text-xl'>Email Address :</p>
+                        <p className='font-serif m-[1%]  text-lg'>Email Address :</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
+                            className='border rounded-lg h-[50px] pl-[4%]'
                             type="email"
                             name="email"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.email}
-                            placeholder='Please enter an email'
+                            placeholder='please enter an email'
                         />
                        <p className='text-red-500 mx-[1%] text-xs'>{errors.email && touched.email && errors.email}</p> 
                     </motion.div>
 
                     {/* PASSWORD INPUT */}
                     <motion.div className='flex flex-col mb-[5%] min-w-[100%]' {...slideAnimation('left',0.2)}>
-                        <p className='font-serif m-[1%] text-xl'>Password :</p>
+                        <p className='font-serif m-[1%] text-lg'>Password :</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
-                            type="password"
+                            className='border rounded-lg h-[50px] pl-[4%]'
+                            type={showPass?'text':'password'}
                             name="password"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.password}
-                            placeholder='Enter your password'
+                            placeholder='enter your password'
                         />
                         <p className='text-red-500 mx-[1%] text-xs'>{errors.password && touched.password && errors.password}</p>
+                        <div className='flex gap-1 m-1'>
+                            <input type='checkbox' className='' onChange={()=> setShowPass(!showPass)}/>
+                            <label className='text-xs text-gray-400'>show password</label>
+                        </div>
                     </motion.div>
 
                     {/* SUBMIT BUTTON */}
