@@ -64,24 +64,24 @@ const fetchCurrentChats = async(id) => {
   },[fetchGroups])
 
   return (
-    <div className='h-[20%] border-b-4 rounded-lg]'>
+    <div className='h-[20%] border-b-4 rounded-lg bg-gray-200'>
 
         {/* CREATE NEW GROUP */}
         <AddToGroup show={showCreateGroup} setShow={setShowCreateGroup}/>
 
         {/* Label */}
         <div className='flex items-center mt-[1%] '>
-            <h2 className='font-serif font-bold ml-[5%] border-b-2 '>Teams</h2>
+            <h2 className='font-serif font-bold ml-[5%] border-b-2 mb-3 '>Teams</h2>
         </div>
 
         {/* All Groups */}
-        <div className='flex flex-row justify-start overflow-x-auto ml-[2%]'>
+        <div className='flex flex-row justify-start overflow-x-auto ml-[2%] '>
 
             {/* CREATE GROUP BUTTON */}
-            <GroupIcon clickFun = {() =>setShowCreateGroup(true)} groupName="Create" src='https://static.thenounproject.com/png/79377-200.png' />
+            <GroupIcon clickFun = {() =>setShowCreateGroup(true)} groupName="Create"/>
             { loading? <GroupLoader />:
               groups.map((group,index) => (
-                <GroupIcon clickFun={() => accessGroup(group)} index={index} groupName={group.chatName} key = {group._id} src='https://t4.ftcdn.net/jpg/03/78/40/51/360_F_378405187_PyVLw51NVo3KltNlhUOpKfULdkUOUn7j.jpg'/>
+                <GroupIcon clickFun={() => accessGroup(group)} index={index} groupName={group.chatName} key = {group._id} />
               ))
             }
         </div>

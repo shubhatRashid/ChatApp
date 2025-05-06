@@ -3,7 +3,7 @@ import Button from './Button'
 
 const Search = ({placeholder,handleSearch,handleClick,handleChange,value}) => {
   return (
-    <div className='w-[100%] flex items-center bg-[#232D3F] px-[2%] rounded-lg'>
+    <div className='w-[100%] flex items-center bg-gray-200  border shadow-md px-[2%] rounded-lg'>
       <form onSubmit={handleSearch} className='flex relative w-[100%]'>
         <input 
         value={value} 

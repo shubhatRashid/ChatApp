@@ -84,14 +84,14 @@ const fetchCurrentChats = async(id) => {
 
 
   return (
-    <div className='flex flex-col h-[65%] border-b-4 rounded-lg'>
+    <div className='flex flex-col h-[65%] border-b-4 rounded-lg bg-gray-200'>
         {/* Label */}
         <div className='flex justify-between items-center  mt-[5%]  py-[2%]'>
-            <h2 className='font-serif font-bold ml-[5%]  border-b-2'>Chats</h2>
+            <h2 className='font-serif font-bold ml-[5%]  border-b-2'>All Chats</h2>
         </div>
 
         {/*ALL CHATS OF LOGGED IN USER*/}
-        <div className='flex flex-col  overflow-y-auto'>
+        <div className='flex flex-col  overflow-y-scroll'>
           {loading?<ChatsLoader/>:chats.map((chat,index) => (
             <button onClick = {() => clickChat(chat)} key={chat._id}>
               <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }

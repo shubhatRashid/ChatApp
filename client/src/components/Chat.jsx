@@ -1,12 +1,13 @@
 import React from 'react'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../configs/motion';
+import {CircleUserRound, User} from "lucide-react"
 
 const Chat = ({src,name,subText,index,count}) => {
   return (
-    <motion.div className='flex rounded-lg mx-[2%] bg-[#232D3F]  my-[2%] relative' {...slideAnimation("up",index/4)}>
-        <div className='w-[15%] h-[15%] my-[2%] ml-[2%]'>
-            <img  className= 'rounded-full' src={src} alt='' />
+    <motion.div className='bg-teal-800 flex w-[90%] rounded-lg mx-[2%] border shadow-md  my-[2%] relative p-1 text-white' {...slideAnimation("up",index/4)}>
+        <div className='w-[15%] h-[15%] my-[2%] ml-[2%] '>
+          <User size={25}/>
         </div>
         <div className='flex flex-col items-start  my-auto ml-[3%]'>
             <h2 className='font-serif text-sm capitalize'>{name}</h2>
@@ -15,7 +16,7 @@ const Chat = ({src,name,subText,index,count}) => {
 
         {count?
         <div className='absolute right-10 top-0 bottom-0 flex flex-col justify-center'>
-          <p className='font-serif text-xs text-black italic flex justify-center border rounded-full h-[20px] w-[40px] bg-green-500'>{count}</p>
+          <p className='font-serif text-xs italic flex justify-center border rounded-full h-[20px] w-[40px] bg-green-500'>{count}</p>
         </div>
         :<></>}
     </motion.div>
