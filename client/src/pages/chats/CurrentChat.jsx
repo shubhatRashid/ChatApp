@@ -144,19 +144,6 @@ const fetchCurrentChats = async(id) => {
     >
       <UpdateGroup show={showUpdateDiv} setShow={setShowUpdateDiv} />
 
-    {/*ALL NOTIFICATIONS OF LOGGED IN USER*/}
-    <div className={`${showNotification?"flex":"hidden"} flex-col  overflow-y-auto absolute top-20 left-5 right-5 z-10 border rounded-lg bg-white`}>
-        {!notification.length?"No notifications":notification.map((notification) => (
-          <button onClick={() =>clickNotif(notification)}>
-            <Chat src={notification.sender.pic }
-            name={notification.sender.name} 
-            key = {notification._id} 
-            subText = {notification.content}
-            />
-          </button>
-        ))}
-    </div>
-
     {/* SEARCH IN CHAT */}
     <motion.div className='flex my-[1%] gap-2  rounded-lg' {...slideAnimation("down")}>
         <Search placeholder='Search in chat...' />
@@ -176,19 +163,11 @@ const fetchCurrentChats = async(id) => {
                   :
                   <></>
                 }
-
-                {/*  NOTIFICATION BUTTON */}
-                <div className={`${notification.length > 0?"flex":"hidden"} items-center  pr-[2%] rounded-r-lg relative `}>
-                <span className="animate-ping absolute top-0 right-4 inline-flex h-2 w-2 rounded-full bg-red-400 opacity-75"></span>
-                  <div className='rounded-full text-2xl'>
-                    <button onClick={() => setShowNotification(!showNotification)} trigger={"loop"}>🔔</button>
-                  </div>
-                </div>
                 
           </motion.div>
          
           {/* CURRENT CHATS */}
-          <motion.div className={`h-[85%] flex flex-col-reverse overflow-y-auto bg-teal-800`} {...slideAnimation('up')}>
+          <motion.div className={`max-h-[60dvh] flex flex-col-reverse overflow-y-auto bg-teal-800`} {...slideAnimation('up')}>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
                       {messages.map((message,index) => (
@@ -200,14 +179,14 @@ const fetchCurrentChats = async(id) => {
     
       
     {/* REPLY */}
-    <motion.form className='flex justify-around items-center my-[1%] border p-1 bg-gray-200 rounded-lg' onSubmit={handleSubmit} {...slideAnimation('left')}>
+    <motion.form className='flex justify-around items-center my-1 border p-1 bg-gray-200 rounded-lg' onSubmit={handleSubmit} {...slideAnimation('left')}>
       <div className='flex p-[5px] space-x-2 gap-1 rounded-lg  '>
         <button><ImagePlus/></button>
         <button><Camera/></button>
         <button><SmilePlus/></button>
       </div>
       
-      <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='border h-[40px] w-[60%] px-[2%] rounded-lg bg-white text-white'/>
+      <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='border h-[40px] w-[60%] px-[2%] rounded-lg bg-white text-black'/>
       <button type="submit" className='flex items-center'>
         <SendHorizonal className=''/>
       </button>

@@ -11,7 +11,7 @@ import SearchDrawer from "./SearchDrawer"
 import {motion} from "framer-motion"
 import Logo from '../../components/Logo';
 import { slideAnimation } from '../../configs/motion';
-import { ArrowUp } from 'lucide-react';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 
 const Chats = () => {
 
@@ -70,9 +70,9 @@ const Chats = () => {
 
         {/* SIDE BAR SHOW BUTTON */}
         <div 
-          className='absolute flex right-1 top-1/2 border p-2 rounded-full bg-white sm:hidden '
+          className='absolute z-10 flex right-1 top-1/2 border p-2 rounded-full bg-white sm:hidden '
         >
-            <button onClick={() => setSeeNav(!seeNav)}><ArrowUp/></button>
+            <button onClick={() => setSeeNav(!seeNav)}>{seeNav ? <ArrowDown/> : <ArrowUp/>}</button>
         </div>
 
         {/* ALL CHATS DIV */}
