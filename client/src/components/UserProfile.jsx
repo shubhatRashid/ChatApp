@@ -14,9 +14,6 @@ const UserProfile = ({user, showSidebar}) => {
             <UserRoundCheck className='mb-1'/>
             <h2 className='font-serif text-sm font-bold'>{user.name}</h2>
         </div>
-        <div className='flex sm:hidden flex items-center justify-end'>
-            <Button   src="https://cdn.lordicon.com/qjezzrrz.json" clickFun={showSidebar} size='45px' />
-        </div>
     </motion.div>
   )
 }

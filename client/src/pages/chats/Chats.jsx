@@ -9,8 +9,9 @@ import ChatList from './ChatList';
 import CurrentChat from './CurrentChat';
 import SearchDrawer from "./SearchDrawer"
 import {motion} from "framer-motion"
-import {slideAnimation} from "../../configs/motion"
-
+import Logo from '../../components/Logo';
+import { slideAnimation } from '../../configs/motion';
+import { ArrowUp } from 'lucide-react';
 
 const Chats = () => {
 
@@ -61,11 +62,18 @@ const Chats = () => {
 
         {/* SIDEBAR FOR QUICK ACCESS */}
         <motion.div 
-          className={`${seeNav?'flex':'hidden'} sm:flex my-[2%] mx-[2%] rounded-lg ml-[2%] px-[1%] border bg-gray-200`}
+          className={`${seeNav?'flex':'hidden'} sm:flex flex-col justify-between gap-5 my-[2%] mx-0 sm:mx-[2%] rounded-lg`}
           {...slideAnimation('left')}
-        >
+        >   <Logo/>
             <Sidebar seeNav={seeNav} homeFun= {homeFun} chatFun={chatFun} searchFun = {searchFun} logoutFun = {logoutFun} />
         </motion.div>
+
+        {/* SIDE BAR SHOW BUTTON */}
+        <div 
+          className='absolute flex right-1 top-1/2 border p-2 rounded-full bg-white sm:hidden '
+        >
+            <button onClick={() => setSeeNav(!seeNav)}><ArrowUp/></button>
+        </div>
 
         {/* ALL CHATS DIV */}
         <motion.div 

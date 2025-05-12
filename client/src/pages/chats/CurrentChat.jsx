@@ -11,7 +11,8 @@ import Chat from '../../components/Chat'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion'
 import {received,notify} from "../../assets"
-import { ImagePlus, SendHorizonal, SmilePlus, User } from 'lucide-react'
+import { Camera, ImagePlus, SendHorizonal, SmilePlus, User } from 'lucide-react'
+import chatbackground from "../../assets/chatbackground.jpg"
 const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
 // VARIABLES FOR SOCKET CONNECTION //
@@ -136,7 +137,9 @@ const fetchCurrentChats = async(id) => {
     selectedChat ?
     
     <motion.div 
-      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between min-w-[40%] w-screen bg-white my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
+      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between 
+      min-w-[40%] w-screen bg-white my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
+      
       {...slideAnimation('right',0.2)}
     >
       <UpdateGroup show={showUpdateDiv} setShow={setShowUpdateDiv} />
@@ -157,10 +160,6 @@ const fetchCurrentChats = async(id) => {
     {/* SEARCH IN CHAT */}
     <motion.div className='flex my-[1%] gap-2  rounded-lg' {...slideAnimation("down")}>
         <Search placeholder='Search in chat...' />
-        {/* SIDE BAR SHOW BUTTON */}
-        <div className='flex sm:hidden flex items-center justify-center w-[10%]'>
-            <Button   src="https://cdn.lordicon.com/qjezzrrz.json" clickFun={showSidebar} size='45px' />
-        </div>
     </motion.div>
     
     <div className='border h-[70%]  rounded-lg text-black '>
@@ -189,7 +188,7 @@ const fetchCurrentChats = async(id) => {
           </motion.div>
          
           {/* CURRENT CHATS */}
-          <motion.div className='h-[85%] flex flex-col-reverse overflow-y-auto' {...slideAnimation('up')}>
+          <motion.div className={`h-[85%] flex flex-col-reverse overflow-y-auto bg-teal-800`} {...slideAnimation('up')}>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
                       {messages.map((message,index) => (
@@ -203,8 +202,9 @@ const fetchCurrentChats = async(id) => {
     {/* REPLY */}
     <motion.form className='flex justify-around items-center my-[1%] border p-1 bg-gray-200 rounded-lg' onSubmit={handleSubmit} {...slideAnimation('left')}>
       <div className='flex p-[5px] space-x-2 gap-1 rounded-lg  '>
-        <button><SmilePlus/></button>
         <button><ImagePlus/></button>
+        <button><Camera/></button>
+        <button><SmilePlus/></button>
       </div>
       
       <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='border h-[40px] w-[60%] px-[2%] rounded-lg bg-white text-white'/>
