@@ -5,7 +5,7 @@ import '@uploadcare/react-uploader/core.css';
 import { toast } from 'react-toastify';
 import { toastTheme } from '../constants';
 
-function App({socket,selectedChat}) {
+function App({socket,selectedChat,setShowFileUploadOption}) {
     const {user,messages,setMessages} = ChatState()
 
     const sendMessage = async(mediaUrl,mediaType,mediaName) => {
@@ -34,7 +34,7 @@ function App({socket,selectedChat}) {
           response = await response.json()
           setMessages([...messages,response])
           socket.emit("new message",response) // sending new message into the room using socket
-          
+          setShowFileUploadOption(false)
         } catch (error) {
             toast.error(error.message,toastTheme)
         }

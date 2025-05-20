@@ -29,12 +29,14 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
               { mediaType.includes('image') && 
                 <div className="flex flex-col gap-1">
                   <h3 className="font-mono font-bold  text-xs sm:text-sm px-1">{mediaName}</h3>
-                  <img 
-                  id='image' 
-                  title={mediaName}
-                  src={mediaUrl} 
-                  onClick={() => document.getElementById('image').requestFullscreen()}
-                  />
+                  <a href={mediaUrl} download={true} target="_blank">
+                    <img 
+                    id='image' 
+                    title={mediaName}
+                    src={mediaUrl} 
+                    // onDoubleClick={() => document.getElementById('image').requestFullscreen()}
+                    />
+                  </a>
                 </div>
               }
 

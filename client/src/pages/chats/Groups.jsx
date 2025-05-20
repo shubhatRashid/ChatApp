@@ -64,18 +64,18 @@ const fetchCurrentChats = async(id) => {
   },[fetchGroups])
 
   return (
-    <div className='h-[20%] border-b-4 rounded-lg bg-gray-200'>
+    <div className='rounded-lg bg-neutral-900'>
 
         {/* CREATE NEW GROUP */}
         <AddToGroup show={showCreateGroup} setShow={setShowCreateGroup}/>
 
         {/* Label */}
-        <div className='flex items-center mt-[1%] '>
-            <h2 className='font-serif font-bold ml-[5%] border-b-2 mb-3 '>Teams</h2>
+        <div className='flex items-center '>
+            <h2 className='font-sans font-bold ml-[5%] mb-2'>Teams</h2>
         </div>
 
         {/* All Groups */}
-        <div className='flex flex-row justify-start overflow-x-auto ml-[2%] '>
+        <div className='flex flex-row justify-start overflow-x-scroll scrollbar-none ml-[2%] border rounded-xl border-neutral-600 py-2'>
 
             {/* CREATE GROUP BUTTON */}
             <GroupIcon clickFun = {() =>setShowCreateGroup(true)} groupName="Create"/>

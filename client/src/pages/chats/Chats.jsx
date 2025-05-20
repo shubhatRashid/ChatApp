@@ -55,7 +55,7 @@ const Chats = () => {
   }
 
   return (
-    <div className='flex flex-row bg-teal-800 justify-center h-screen'>
+    <div className='flex flex-row bg-black justify-center h-screen'>
 
         {/* USER SEARCH DRAWER */}
         <SearchDrawer showSearch={searchDrawer} searchFun = {searchFun}/>
@@ -70,14 +70,14 @@ const Chats = () => {
 
         {/* SIDE BAR SHOW BUTTON */}
         <div 
-          className='absolute z-10 flex right-1 top-1/2 border p-2 rounded-full bg-white sm:hidden '
+          className='absolute z-10 flex right-4 top-[60%]  p-2 rounded-full bg-neutral-900 text-white sm:hidden '
         >
             <button onClick={() => setSeeNav(!seeNav)}>{seeNav ? <ArrowDown/> : <ArrowUp/>}</button>
         </div>
 
         {/* ALL CHATS DIV */}
         <motion.div 
-          className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-white text-black w-[550px] px-[1%] py-[1%] border`}
+          className={`${usersDiv?"flex":"hidden"} flex-col justify-between my-[2%] rounded-lg bg-neutral-900 text-white w-[550px] px-[1%] py-[1%] `}
           {...slideAnimation('left',0.1)}>
             <UserProfile user={user} showSidebar={showSidebar}/>
             <Groups  setStart = {setStart} chatFun={chatFun}/>

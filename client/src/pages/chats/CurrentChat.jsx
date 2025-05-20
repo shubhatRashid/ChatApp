@@ -10,7 +10,7 @@ import io from "socket.io-client"
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion'
 import {received,notify} from "../../assets"
-import { Camera,Paperclip, SendHorizonal, SmilePlus, User } from 'lucide-react'
+import { Camera,CircleUser,Paperclip, SendHorizonal, SmilePlus, User } from 'lucide-react'
 import Uploadcare from '../../components/UploadCare'
 const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
@@ -141,7 +141,7 @@ const fetchCurrentChats = async (id) => {
     
     <motion.div 
       className={`relative ${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between
-      min-w-[40%] w-screen bg-white my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
+      min-w-[40%] w-screen my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%]`}
       
       {...slideAnimation('right',0.2)}
     >
@@ -152,13 +152,13 @@ const fetchCurrentChats = async (id) => {
         <Search placeholder='Search in chat...' />
     </motion.div>
     
-    <div className='border  rounded-lg text-black '>
+    <div className='text-white'>
 
           {/* NAME AND PHOTO */}
-          <motion.div className='bg-gray-200 flex items-center justify-between  border-b rounded-lg h-[15%] pr-[1%]' {...slideAnimation('down')}>
+          <motion.div className='bg-neutral-900 shadow-md shadow-cyan-500/50 flex items-center justify-between  rounded-lg mb-2' {...slideAnimation('down')}>
                 <div className='flex items-center  my-[2%] ml-[2%]'>
-                  <User size={30}/>
-                  <h2 className='font-serif text-sm ml-[10%] w-[200px] capitalize font-bold ' >{fetchChatName(selectedChat,user)}</h2>
+                  <CircleUser/>
+                  <h2 className=' text-sm ml-[10%] w-[200px] capitalize' >{fetchChatName(selectedChat,user)}</h2>
                 </div>
                 {
                   selectedChat.isGroupChat && selectedChat.groupAdmin._id===user._id? 
@@ -170,7 +170,7 @@ const fetchCurrentChats = async (id) => {
           </motion.div>
          
           {/* CURRENT CHATS */}
-          <motion.div className={`h-[65dvh] sm:h-[55dvh] flex flex-col-reverse overflow-y-auto bg-teal-800`} {...slideAnimation('up')}>
+          <motion.div className={`h-[65dvh] sm:h-[55dvh] flex flex-col-reverse overflow-y-auto bg-neutral-950`} {...slideAnimation('up')}>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
                       {messages.map((message,index) => (
@@ -182,12 +182,12 @@ const fetchCurrentChats = async (id) => {
     
       
     {/* REPLY */}
-    <motion.div className='flex justify-around items-center border mb-2 p-1 bg-gray-200 rounded-lg w-full gap-2' {...slideAnimation('left')}>
+    <motion.div className='flex justify-around items-center p-1 bg-neutral-900 text-white rounded-lg w-full gap-2 p-2' {...slideAnimation('left')}>
       <div className='flex p-[5px]  gap-3 rounded-lg justify-center items-center '>
         {
           showFileUploadOption && 
           <div className='absolute bottom-20 left-5 z-10 bg-white rounded-lg font-mono font-bold border shadow-md'>
-            <Uploadcare socket = {socket} selectedChat={selectedChat}/>
+            <Uploadcare socket = {socket} selectedChat={selectedChat} setShowFileUploadOption={setShowFileUploadOption}/>
           </div>
         }
         <button onClick={() => setShowFileUploadOption(!showFileUploadOption)}>
@@ -198,7 +198,7 @@ const fetchCurrentChats = async (id) => {
       </div>
       
       <form onSubmit={handleSubmit} typeof='submit' className='flex justify-around items-center w-[70%]'>
-        <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='border h-[40px] w-[80%] px-[2%] rounded-lg bg-white text-black'/>
+        <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='h-[40px] w-[90%] px-[2%] rounded-lg bg-neutral-600'/>
         <button type="submit" className='flex items-center'>
           <SendHorizonal className=''/>
         </button>

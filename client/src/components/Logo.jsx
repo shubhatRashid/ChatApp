@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 
 const Logo = () => {
   return (
-    <motion.div className='hidden sm:flex flex-col w-[70px] bg-gray-200 p-2 rounded-xl' {...slideAnimation('left',0.4)}>
+    <motion.div className='hidden sm:flex flex-col w-[70px] bg-neutral-900 p-2 pb-3 rounded-xl' {...slideAnimation('left',0.4)}>
         <motion.img 
             src={chatIcon} 
             alt='brand' 
