@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { toastTheme } from '../../constants';
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion';
+import { gradient } from '../../constants';
 
 const Login = () => {
    // FOR NAVIGATING BETWEEN DIFF ROUTES
@@ -78,9 +79,9 @@ const Login = () => {
 
                     {/* EMAIL INPUT */}
                     <motion.div className='flex flex-col my-[5%] min-w-[100%]' {...slideAnimation("left")}>
-                        <p className='font-serif m-[1%]  text-lg'>Email Address :</p>
+                        <p className='m-[1%]  text-md'>Email</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%]'
+                            className='rounded-lg h-[50px] pl-[4%] bg-neutral-600 outline-none'
                             type="email"
                             name="email"
                             onChange={handleChange}
@@ -93,9 +94,9 @@ const Login = () => {
 
                     {/* PASSWORD INPUT */}
                     <motion.div className='flex flex-col mb-[5%] min-w-[100%]' {...slideAnimation('left',0.2)}>
-                        <p className='font-serif m-[1%] text-lg'>Password :</p>
+                        <p className='m-[1%] text-md'>Password </p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%]'
+                            className='rounded-lg h-[50px] pl-[4%] bg-neutral-600 outline-none'
                             type={showPass?'text':'password'}
                             name="password"
                             onChange={handleChange}
@@ -114,7 +115,7 @@ const Login = () => {
                     <motion.button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className='font-serif mx-[1%] border px-[4%] py-[1%] rounded-lg bg-emerald-200 hover:bg-emerald-100 hover:text-lg text-black'
+                    className={`${gradient} font-serif mx-[1%] px-[4%] py-[1%] rounded-lg hover:bg-emerald-100 hover:text-lg`}
                     {...slideAnimation("left",0.3)}>
                         Submit
                     </motion.button>

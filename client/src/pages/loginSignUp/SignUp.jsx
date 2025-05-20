@@ -93,9 +93,9 @@ const SignUp = () => {
 
                     {/*NAME INPUT*/}
                     <motion.div className='flex flex-col mt-[5%] min-w-[100%]' {...slideAnimation('left',0.2)}>
-                        <p className='font-serif m-[1%]  text-lg'>Name :</p>
+                        <p className='m-[1%]  text-md'>Name</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
+                            className='rounded-lg h-[50px] pl-[4%] bg-neutral-600 outline-none'
                             type="name"
                             name="name"
                             onChange={handleChange}
@@ -108,9 +108,9 @@ const SignUp = () => {
 
                     {/*EMAIL INPUT*/}
                     <motion.div className='flex flex-col my-[5%] min-w-[100%]' {...slideAnimation('left',0.3)}>
-                        <p className='font-serif m-[1%]  text-lg'>Email Address :</p>
+                        <p className='m-[1%]  text-md'>Email</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
+                            className='rounded-lg h-[50px] pl-[4%] bg-neutral-600 outline-none'
                             type="email"
                             name="email"
                             onChange={handleChange}
@@ -123,9 +123,9 @@ const SignUp = () => {
 
                     {/*PASSWORD INPUT*/}
                     <motion.div className='flex flex-col mb-[5%] min-w-[45%]' {...slideAnimation('left',0.4)}>
-                        <p className='font-serif m-[1%] text-lg'>Password :</p>
+                        <p className='m-[1%] text-md'>Password</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
+                            className='rounded-lg h-[50px] pl-[4%] bg-neutral-600 outline-none'
                             type={showPass?'text':'password'}
                             name="password"
                             onChange={handleChange}
@@ -143,9 +143,9 @@ const SignUp = () => {
 
                     {/*CONFIRM PASSWORD INPUT*/}
                     <motion.div className='flex flex-col mb-[5%] min-w-[45%]' {...slideAnimation('right',0.5)}>
-                        <p className='font-serif m-[1%] text-lg'>Confirm Password :</p>
+                        <p className='m-[1%] text-md'>Confirm Password</p>
                         <input
-                            className='border rounded-lg h-[50px] pl-[4%] border-indigo-500'
+                            className='rounded-lg h-[50px] pl-[4%] bg-neutral-600 outline-none'
                             type={showPass?'text':'password'}
                             name="confirmPassword"
                             onChange={handleChange}
