@@ -7,7 +7,7 @@ const Chat = require("../models/chatsModel")
 const createMessage = AsyncHandler(
     async (req,res) => {
         console.log(req.body)
-        const {chatId,content} = req.body
+        const {chatId,content,messageType,mediaName} = req.body
 
         if (!chatId || !content){
             res.status(400).send({message:"chatId or content not found"})
@@ -16,6 +16,8 @@ const createMessage = AsyncHandler(
         const newMessage = {
             sender : req.user._id,
             content: content,
+            messageType:messageType,
+            mediaName:mediaName,
             chat:chatId
         }
 

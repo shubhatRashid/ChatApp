@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import ChatBubble from '../../components/ChatBubble'
 import Search from '../../components/Search'
 import Button from '../../components/Button'
@@ -7,12 +7,11 @@ import UpdateGroup from './UpdateGroup'
 import { toast } from 'react-toastify';
 import { fetchChatName, toastTheme } from '../../constants';
 import io from "socket.io-client"
-import Chat from '../../components/Chat'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../../configs/motion'
 import {received,notify} from "../../assets"
-import { Camera, ImagePlus, SendHorizonal, SmilePlus, User } from 'lucide-react'
-import chatbackground from "../../assets/chatbackground.jpg"
+import { Camera,Paperclip, SendHorizonal, SmilePlus, User } from 'lucide-react'
+import Uploadcare from '../../components/UploadCare'
 const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
 
 // VARIABLES FOR SOCKET CONNECTION //
@@ -25,9 +24,10 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
   const [newMessage,setNewMessage] = useState("")
   const [socketConnected,setSocketConnected] = useState(false)
   const [showNotification,setShowNotification] = useState(false)
+  const [showFileUploadOption,setShowFileUploadOption] = useState(false)
 
   // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
-const fetchCurrentChats = async(id) => {
+const fetchCurrentChats = async (id) => {
   try {
     const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages/${id}`
     const headers = { 
@@ -37,8 +37,7 @@ const fetchCurrentChats = async(id) => {
         headers:headers
     })
     response = await response.json()
-    setMessages(response)
- 
+    setMessages(() => response)
   } catch (error) {
       toast.error(error.message,toastTheme)
   }
@@ -75,8 +74,10 @@ const fetchCurrentChats = async(id) => {
         }
 
       }else{
-        fetchCurrentChats(newMessageReceived.chat._id)
+        console.log(newMessageReceived)
+        setMessages((messages) =>[ ...JSON.parse(JSON.stringify(messages)),newMessageReceived])
         new Audio(received).play()
+        
       }
     })
 
@@ -99,7 +100,9 @@ const fetchCurrentChats = async(id) => {
       const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages`
       const body = {
         chatId:selectedChat._id,
-        content:newMessage
+        content:newMessage,
+        messageType : 'text',
+        mediaName:'none'
       }
       const headers = { 
           "content-type" : "application/json",
@@ -137,7 +140,7 @@ const fetchCurrentChats = async(id) => {
     selectedChat ?
     
     <motion.div 
-      className={`${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between 
+      className={`relative ${usersDiv?"hidden":"flex"} md:${seeChat?'flex':'hidden'} relative flex-col justify-between
       min-w-[40%] w-screen bg-white my-[2%] mx-[1%] rounded-lg ml-[2%] px-[1%] pt-[1%] border`}
       
       {...slideAnimation('right',0.2)}
@@ -145,11 +148,11 @@ const fetchCurrentChats = async(id) => {
       <UpdateGroup show={showUpdateDiv} setShow={setShowUpdateDiv} />
 
     {/* SEARCH IN CHAT */}
-    <motion.div className='flex my-[1%] gap-2  rounded-lg' {...slideAnimation("down")}>
+    <motion.div className='flex  gap-2  rounded-lg' {...slideAnimation("down")}>
         <Search placeholder='Search in chat...' />
     </motion.div>
     
-    <div className='border h-[70%]  rounded-lg text-black '>
+    <div className='border  rounded-lg text-black '>
 
           {/* NAME AND PHOTO */}
           <motion.div className='bg-gray-200 flex items-center justify-between  border-b rounded-lg h-[15%] pr-[1%]' {...slideAnimation('down')}>
@@ -167,7 +170,7 @@ const fetchCurrentChats = async(id) => {
           </motion.div>
          
           {/* CURRENT CHATS */}
-          <motion.div className={`max-h-[60dvh] flex flex-col-reverse overflow-y-auto bg-teal-800`} {...slideAnimation('up')}>
+          <motion.div className={`h-[65dvh] sm:h-[55dvh] flex flex-col-reverse overflow-y-auto bg-teal-800`} {...slideAnimation('up')}>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
                       {messages.map((message,index) => (
@@ -179,18 +182,28 @@ const fetchCurrentChats = async(id) => {
     
       
     {/* REPLY */}
-    <motion.form className='flex justify-around items-center my-1 border p-1 bg-gray-200 rounded-lg' onSubmit={handleSubmit} {...slideAnimation('left')}>
-      <div className='flex p-[5px] space-x-2 gap-1 rounded-lg  '>
-        <button><ImagePlus/></button>
+    <motion.div className='flex justify-around items-center border mb-2 p-1 bg-gray-200 rounded-lg w-full gap-2' {...slideAnimation('left')}>
+      <div className='flex p-[5px]  gap-3 rounded-lg justify-center items-center '>
+        {
+          showFileUploadOption && 
+          <div className='absolute bottom-20 left-5 z-10 bg-white rounded-lg font-mono font-bold border shadow-md'>
+            <Uploadcare socket = {socket} selectedChat={selectedChat}/>
+          </div>
+        }
+        <button onClick={() => setShowFileUploadOption(!showFileUploadOption)}>
+             <Paperclip/>
+        </button>
         <button><Camera/></button>
         <button><SmilePlus/></button>
       </div>
       
-      <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='border h-[40px] w-[60%] px-[2%] rounded-lg bg-white text-black'/>
-      <button type="submit" className='flex items-center'>
-        <SendHorizonal className=''/>
-      </button>
-    </motion.form>
+      <form onSubmit={handleSubmit} typeof='submit' className='flex justify-around items-center w-[70%]'>
+        <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='border h-[40px] w-[80%] px-[2%] rounded-lg bg-white text-black'/>
+        <button type="submit" className='flex items-center'>
+          <SendHorizonal className=''/>
+        </button>
+      </form>
+    </motion.div>
 
 </motion.div>
 
