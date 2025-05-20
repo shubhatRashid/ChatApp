@@ -75,7 +75,7 @@ const fetchCurrentChats = async(id) => {
         </div>
 
         {/* All Groups */}
-        <div className='flex flex-row justify-start overflow-x-scroll scrollbar-none ml-[2%] border rounded-xl border-neutral-600 py-2'>
+        <div className='flex flex-row justify-start overflow-x-scroll scrollbar-none ml-[2%] border-b rounded-md border-neutral-600 py-2'>
 
             {/* CREATE GROUP BUTTON */}
             <GroupIcon clickFun = {() =>setShowCreateGroup(true)} groupName="Create"/>

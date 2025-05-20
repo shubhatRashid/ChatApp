@@ -11,8 +11,7 @@ const Sidebar = ({homeFun,chatFun,searchFun,logoutFun}) => {
                       rounded-none sm:rounded-xl bg-neutral-900 text-white'>
         
             {/* UPPER ICON BUTTONS */}
-            <motion.div className='flex flex-row sm:flex-col gap-5 items-center justify-center  h-[100%]' {...slideAnimation('left',0.5)}>
-              <button onClick={chatFun}><NotebookTabs/></button>
+            <motion.div className='flex flex-row sm:flex-col gap-5 items-center justify-center' {...slideAnimation('left',0.5)}>
               <button onClick={homeFun}><Home/></button>
               <button onClick={searchFun}><Search/></button>
             </motion.div>

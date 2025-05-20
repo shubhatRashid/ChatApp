@@ -10,10 +10,10 @@ const groupIcon = ({groupName,clickFun,index}) => {
       className='max-w-[150px] my-[2%] mx-[3%] flex flex-col items-center justify-center'
     >
         <button onClick={clickFun}>
-          <CircleUser/>
+          <CircleUser size={35}/>
         </button>
         <div className='flex items-center w-[100%] h-[100%] justify-around '>
-          <p className='flex font-serif text-[9px] lowercase'>{groupName.slice(0,4)}</p>
+          <p className='flex font-serif text-xs lowercase'>{groupName.slice(0,4)}</p>
         </div>
 
     </motion.div>

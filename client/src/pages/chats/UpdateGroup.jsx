@@ -149,14 +149,14 @@ const UpdateGroup = ({show,setShow}) => {
         
         <div  
             className={`absolute z-20 ${show?"flex":"hidden"} flex-col top-20 left-5 right-5
-                justify-center items-center bg-gray-200 rounded-lg border shadow-lg 
+                justify-center items-center bg-black rounded-lg shadow-md shadow-cyan-500/50 text-white
                 min-w-[80%] min-h-[45%] py-[5%] `}>
             
             {/* DISPLAY MEMBERS*/}
 
-            <div className='w-[80%] grid grid-cols-3 sm:grid-cols-5 grid-flow-row gap-2 my-[3%] border rounded-lg p-[2%]'>
+            <div className='w-[80%] grid grid-cols-3 sm:grid-cols-5 grid-flow-row gap-2 my-[3%] bg-neutral-900 rounded-lg p-[2%]'>
                 {selectedChat.users.map(member => (
-                    <div key={member._id} className='flex mx-[1%] my-[2%] border rounded-lg flex justify-around items-center p-[2%] gap-2 bg-white'>
+                    <div key={member._id} className='flex mx-[1%] my-[2%] p-2 rounded-lg flex justify-around items-center gap-2 bg-neutral-600'>
                         <p className='Capitalize text-sm font-serif'>{member.name}</p>
                         <button  className='flex items-center font-serif text-xs' onClick={(e) => removeUser(e,member._id)}>
                             <p className='flex mx-auto'>×</p>
@@ -166,24 +166,24 @@ const UpdateGroup = ({show,setShow}) => {
             </div>
 
             {/* BUTTON TO CLOSE THE DIV */}
-            <button onClick={()=>{setShow(false)}} className='absolute flex items-center font-serif text-xs absolute top-0 right-0 border rounded-full m-1'>
+            <button onClick={()=>{setShow(false)}} className='absolute z-10 flex items-center text-xs absolute top-0 right-0 border rounded-full m-1'>
                 <X size={20}/>
             </button>
 
             {/* HEADING */}
-            <div className='absolute top-0 left-0 m-[1%] w-[80%]'>
-                <p className='font-serif m-[1%]  text-xs uppercase'> Update group details :</p>
+            <div className='absolute top-0 left-0 rounded-lg py-2 w-[80%] bg-neutral-900 w-full font-bold'>
+                <p className='m-[1%]  text-xs uppercase'> Update group details</p>
             </div>
 
             {/* FORM */}
             <div className='flex flex-col gap-[10px] w-[80%] relative'>
-                <form className='flex bg-white rounded-lg pr-[1%]' onSubmit={renameGroup}>
-                    <input value={groupName} placeholder='Rename Group...' className='rounded-lg p-[2%] w-[100%]' onChange={(e) => setGroupName(e.target.value)}/>
+                <form className='flex bg-neutral-900 rounded-lg pr-[1%]' onSubmit={renameGroup}>
+                    <input value={groupName} placeholder='Rename Group...' className='rounded-lg p-[2%] w-[100%] bg-neutral-900' onChange={(e) => setGroupName(e.target.value)}/>
                     <Button  src="https://cdn.lordicon.com/lbsajkny.json" clickFun={renameGroup} />
                 </form> 
                 <form>
-                    <div className='flex bg-white rounded-lg pr-[1%]'>
-                        <input value = {search} placeholder='Search for new members to add...' className='rounded-lg p-[2%] w-[100%]' onChange={(e) => setSearch(e.target.value)}/>
+                    <div className='flex bg-neutral-900 rounded-lg pr-[1%]'>
+                        <input value = {search} placeholder='Search for new members to add...' className='bg-neutral-900 rounded-lg p-[2%] w-[100%]' onChange={(e) => setSearch(e.target.value)}/>
                         <Button  src="https://cdn.lordicon.com/zniqnylq.json" clickFun={handleSearch} />
                     </div>
                 </form>

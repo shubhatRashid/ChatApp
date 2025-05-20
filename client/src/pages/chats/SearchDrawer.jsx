@@ -68,17 +68,17 @@ const SearchDrawer = ({showSearch,searchFun}) => {
         searchFun()
     }
     return (
-        <div className={`${showSearch?"flex":"hidden"} flex-col h-[100%] w-[400px] absolute left-0 top-0 bg-gray-50 border z-10`}>
-            <div className='flex justify-between items-center w-[90%] border-black my-[2%] mx-auto px-[1%]'>
+        <div className={`${showSearch?"flex":"hidden"} flex-col h-[100%] w-[400px] absolute left-0 top-0 bg-neutral-900 text-white z-10`}>
+            <div className='flex justify-between items-center w-[90%] my-[2%] mx-auto px-[1%]'>
                 <h2 className='font-serif font-bold border-b'>Search Users...</h2> 
                 <button onClick={searchFun} className='text-black p-[2%]'>❌</button> 
             </div>
-            <div className='w-[90%] border-black my-[2%] mx-auto text-black' >
+            <div className='w-[90%] my-[2%] mx-auto border border-neutral-600 rounded-lg' >
                 <Search placeholder="Search a user..." handleSearch={handleSearch} handleClick={() => {setLoader(true)}} handleChange={(e) => setSearch(e.target.value)} value = {search}/>
             </div>
 
             {/* SEARCH RESULTS */}
-            <div className='text-black w-full overflow-y-auto'>
+            <div className='w-full overflow-y-auto'>
                 {loader?<ChatsLoader /> :data.map((value) =>(
                     <button onClick={() => accessChat(value._id,value.name)} className='flex w-full'>
                             <Chat name= {value.name} key={value._id} src={value.pic} subText={value.email}/>

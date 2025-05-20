@@ -183,7 +183,7 @@ const fetchCurrentChats = async (id) => {
       
     {/* REPLY */}
     <motion.div className='flex justify-around items-center p-1 bg-neutral-900 text-white rounded-lg w-full gap-2 p-2' {...slideAnimation('left')}>
-      <div className='flex p-[5px]  gap-3 rounded-lg justify-center items-center '>
+      <div className='flex p-[5px]  gap-3 rounded-lg justify-center items-center pl-2 '>
         {
           showFileUploadOption && 
           <div className='absolute bottom-20 left-5 z-10 bg-white rounded-lg font-mono font-bold border shadow-md'>
@@ -193,11 +193,9 @@ const fetchCurrentChats = async (id) => {
         <button onClick={() => setShowFileUploadOption(!showFileUploadOption)}>
              <Paperclip/>
         </button>
-        <button><Camera/></button>
-        <button><SmilePlus/></button>
       </div>
       
-      <form onSubmit={handleSubmit} typeof='submit' className='flex justify-around items-center w-[70%]'>
+      <form onSubmit={handleSubmit} typeof='submit' className='flex justify-around items-center w-[90%] gap-3'>
         <input value={newMessage} onChange={handleChange}  placeholder='type here...' type='search' className='h-[40px] w-[90%] px-[2%] rounded-lg bg-neutral-600'/>
         <button type="submit" className='flex items-center'>
           <SendHorizonal className=''/>

@@ -70,7 +70,7 @@ const Chats = () => {
 
         {/* SIDE BAR SHOW BUTTON */}
         <div 
-          className='absolute z-10 flex right-4 top-[60%]  p-2 rounded-full bg-neutral-900 text-white sm:hidden '
+          className='absolute z-10 flex right-4 top-[60%]  p-2 rounded-full bg-neutral-900 text-white sm:hidden border '
         >
             <button onClick={() => setSeeNav(!seeNav)}>{seeNav ? <ArrowDown/> : <ArrowUp/>}</button>
         </div>

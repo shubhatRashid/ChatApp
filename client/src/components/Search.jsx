@@ -9,7 +9,7 @@ const Search = ({placeholder,handleSearch,handleClick,handleChange,value}) => {
         onChange={handleChange} 
         placeholder={placeholder} 
         type='search' 
-        className='w-[100%] px-[2%] py-[1.5%] rounded-lg bg-transparent' 
+        className='w-[100%] px-[2%] py-[1.5%] rounded-lg bg-transparent outline-none' 
         />
         <button onCanPlay={handleClick}>
           <TextSearch/>
