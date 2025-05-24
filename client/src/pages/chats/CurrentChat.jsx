@@ -25,23 +25,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
   const [socketConnected,setSocketConnected] = useState(false)
   const [showNotification,setShowNotification] = useState(false)
   const [showFileUploadOption,setShowFileUploadOption] = useState(false)
-
-  // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
-const fetchCurrentChats = async (id) => {
-  try {
-    const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages/${id}`
-    const headers = { 
-        'Authorization': `Bearer ${user.token}` };
-    var response = await fetch(URL, {
-        method:"GET",
-        headers:headers
-    })
-    response = await response.json()
-    setMessages(() => response)
-  } catch (error) {
-      toast.error(error.message,toastTheme)
-  }
-}
+  
 
   // CODE TO SETUP SOCKET.IO
   useEffect(() => {

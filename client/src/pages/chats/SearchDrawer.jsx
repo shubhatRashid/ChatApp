@@ -9,7 +9,7 @@ import ChatsLoader from "../../loaders/ChatsLoader";
 const SearchDrawer = ({showSearch,searchFun}) => {
     // STATE VARIABLES //
     const [loader,setLoader] = useState(false)
-    const {user,setSelectedChat,chats,setChats} = ChatState()
+    const {user,setSelectedChat,chats,setChats,setMessages} = ChatState()
     const [search,setSearch] = useState('')
     const [data,setData] = useState([])
 
@@ -60,9 +60,27 @@ const SearchDrawer = ({showSearch,searchFun}) => {
         }
     }
 
+    // FUNCTION TO FETCH ALL MESSAGES IN A PARTICULAR CHAT
+      const fetchCurrentChats = async (id) => {
+        try {
+          const URL = `${process.env.REACT_APP_SERVER_PORT}/api/messages/${id}`
+          const headers = { 
+              'Authorization': `Bearer ${user.token}` };
+          var response = await fetch(URL, {
+              method:"GET",
+              headers:headers
+          })
+          response = await response.json()
+          setMessages(() => response)
+        } catch (error) {
+            toast.error(error.message,toastTheme)
+        }
+      }
+
     // FUNCTION TO HANDLE CLICK ON SEARCHED USER //
     const accessChat = async (id,name) =>{
         const chat = await fetchChat(id,name)
+        await fetchCurrentChats(chat._id)
         setSelectedChat(chat)
         if (!chats.find((c) => c._id === chat._id)) setChats([chat, ...chats])
         searchFun()
@@ -79,8 +97,8 @@ const SearchDrawer = ({showSearch,searchFun}) => {
 
             {/* SEARCH RESULTS */}
             <div className='w-full overflow-y-auto'>
-                {loader?<ChatsLoader /> :data.map((value) =>(
-                    <button onClick={() => accessChat(value._id,value.name)} className='flex w-full'>
+                {loader?<ChatsLoader /> :data.map((value,index) =>(
+                    <button key={index} onClick={() => accessChat(value._id,value.name)} className='flex w-full'>
                             <Chat name= {value.name} key={value._id} src={value.pic} subText={value.email}/>
                     </button>
                 )) }
