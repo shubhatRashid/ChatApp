@@ -2,25 +2,10 @@ import { File } from "lucide-react";
 import { useState } from "react"
 
 const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
-  const otherDocumentTypes = [
-
-    "application/pdf",
-    "application/msword",               // .doc
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
-    "application/vnd.ms-excel",         // .xls
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
-    "application/vnd.ms-powerpoint",    // .ppt
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation", // .pptx
-    "text/plain",                       // .txt
-    "application/rtf",                  // .rtf
-    "application/json",                 // .json
-    "application/xml",                  // .xml
-    "text/csv",                         // .csv
-    "application/x-yaml",               // .yaml or .yml
-    "application/epub+zip",             // .epub (eBook)
-    "application/x-iwork-keynote-sffkey",  // Apple Keynote
-    "application/x-iwork-pages-sffpages", // Apple Pages
-    "application/x-iwork-numbers-sffnumbers" // Apple Numbers
+  const previewMediaTypes = [
+    'image',
+    'video',
+    'audio',
   ];
 
   return (
@@ -58,7 +43,7 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
               }
 
               
-              {otherDocumentTypes.some((type) => mediaType.includes(type)) && (
+              {!previewMediaTypes.some((type) => mediaType.includes(type)) && (
                 <a
                   target="_blank"
                   id="iframe"
@@ -68,7 +53,7 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
                   href={mediaUrl}
                 > 
                   <File className="text-gray-400 "/>
-                  {mediaName}
+                  {mediaName.slice(0,30) + `${mediaName.length > 30 ? "..." : ""}`}
                 </a>
               )}
             </div>

@@ -53,10 +53,7 @@ const fetchCurrentChats = async(id) => {
     setNotification(notification.filter((n) => n.chat._id !== chat._id))
 
     setStart(false)
-    setSelectedChat()
-    setTimeout(() => {
-      setSelectedChat(chat)
-    },1000)
+    setSelectedChat(chat)
     await fetchCurrentChats(chat._id)
     chatFun()
   }
