@@ -80,6 +80,10 @@ io.on("connection",(socket) => {
         io.emit('onlineusers',Array.from(onlineUsers.keys()))
     })
 
+    socket.on('typing',(userId) => {
+        socket.in(userId).emit('typing',userId)
+    })
+
     //PUT NEW MESSAGE iN RESPECTIVE SOCKET//
     socket.on("new message",(newMessageReceived) => {
         var chat = newMessageReceived.chat
