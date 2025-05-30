@@ -3,8 +3,10 @@ import Button from './Button'
 import {motion} from "framer-motion"
 import { headTextAnimation } from '../configs/motion';
 import { CircleUser, LogOut,UserRoundCheck } from 'lucide-react';
+import { ChatState } from '../context/ChatProvider';
 
 const UserProfile = ({user, showSidebar}) => {
+  const {socket} = ChatState()
 
   return (
     <motion.div 
@@ -16,6 +18,7 @@ const UserProfile = ({user, showSidebar}) => {
             <button className='ml-auto mr-2' name='logout' 
               onClick={() => {
                 localStorage.clear()
+                socket.current.disconnect()
                 window.location.reload()}}>
               <LogOut/>
             </button>

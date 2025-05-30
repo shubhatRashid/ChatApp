@@ -16,31 +16,49 @@ const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% 
 
 // VARIABLES FOR SOCKET CONNECTION //
 const ENDPOINT = process.env.REACT_APP_SERVER_PORT
-var socket,selectedChatCompare;
+var selectedChatCompare;
 
 const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotification}) => {
-  const {user,selectedChat,setSelectedChat,messages,setMessages,notification,setNotification} = ChatState()
+  const {user,selectedChat,setSelectedChat,messages,setMessages,notification,setNotification,socket} = ChatState()
   const [showUpdateDiv,setShowUpdateDiv] = useState(false)
   const [newMessage,setNewMessage] = useState("")
   const [socketConnected,setSocketConnected] = useState(false)
   const [showNotification,setShowNotification] = useState(false)
   const [showFileUploadOption,setShowFileUploadOption] = useState(false)
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [online, setOnline] = useState(false);
   
 
   // CODE TO SETUP SOCKET.IO
-  useEffect(() => {
-    selectedChatCompare = selectedChat
-    
-    socket = io(ENDPOINT)
-    socket.emit("setup",user)
-    socket.on('connected',() => setSocketConnected(true))
 
-  },[selectedChat])
+useEffect(() => {
+  selectedChatCompare = selectedChat
+  socket.current = io(ENDPOINT);
+  socket.current.emit("setup", user._id);
+
+  socket.current.on("connected", () => setSocketConnected(true));
+
+  socket.current.on("onlineusers", (users) => {
+    setOnlineUsers(() => users); // triggers update
+    console.log(users)
+  });
+},[selectedChat]);
+
+useEffect(() => {
+  if (!selectedChat || onlineUsers.length === 0) return;
+
+  const oppositeId =
+    selectedChat.users[0]._id === user._id
+      ? selectedChat.users[1]._id
+      : selectedChat.users[0]._id;
+
+  setOnline(onlineUsers.includes(oppositeId));
+}, [selectedChat, onlineUsers]); 
 
   // GIVE NOTIFICATION OR DISPLAY MESSAGE
   useEffect(() => {
 
-    socket.on("message received",(newMessageReceived) => {
+    socket.current.on("message received",(newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
         // give notification
         if (!notification.includes(newMessageReceived)){
@@ -58,7 +76,6 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
         }
 
       }else{
-        console.log(newMessageReceived)
         setMessages((messages) =>[ ...JSON.parse(JSON.stringify(messages)),newMessageReceived])
         new Audio(received).play()
         
@@ -98,7 +115,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
       })
       response = await response.json()
       setMessages([...messages,response])
-      socket.emit("new message",response) // sending new message into the room using socket
+      socket.current.emit("new message",response) // sending new message into the room using socket
       
     } catch (error) {
         toast.error(error.message,toastTheme)
@@ -119,7 +136,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
     setNotification([])
     setClickedNotification(true)
   }
-
+  
   return (
     selectedChat ?
     
@@ -142,7 +159,23 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
           <motion.div className='bg-neutral-900 shadow-md shadow-cyan-500/50 flex items-center justify-between  rounded-lg mb-2' {...slideAnimation('down')}>
                 <div className='flex items-center  my-[2%] ml-[2%]'>
                   <CircleUser/>
-                  <h2 className=' text-sm ml-[10%] w-[200px] capitalize' >{fetchChatName(selectedChat,user)}</h2>
+                  <div className='flex flex-col '>
+                    <h2 className=' text-sm ml-[10%] w-[200px] capitalize' >{fetchChatName(selectedChat,user)}</h2>
+                    {online  ? 
+                      <div className='flex ml-[10%] gap-1'>
+                        <p className='flex justify-center items-center text-teal-500 text-[8px]'>o</p>
+                        <p className='text-xs text-neutral-200 animate-pulse'>
+                          online
+                        </p>
+                      </div>
+                      : 
+                      <div className='flex ml-[10%]'>
+                        <p className='flex items-center text-xs  gap-1 text-neutral-400 '>
+                          offline
+                        </p>
+                      </div>
+                    }
+                  </div>
                 </div>
                 {
                   selectedChat.isGroupChat && selectedChat.groupAdmin._id===user._id? 
@@ -171,7 +204,7 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotificatio
         {
           showFileUploadOption && 
           <div className='absolute bottom-20 left-5 z-10 bg-white rounded-lg font-mono font-bold border shadow-md'>
-            <Uploadcare socket = {socket} selectedChat={selectedChat} setShowFileUploadOption={setShowFileUploadOption}/>
+            <Uploadcare socket = {socket.current} selectedChat={selectedChat} setShowFileUploadOption={setShowFileUploadOption}/>
           </div>
         }
         <button onClick={() => setShowFileUploadOption(!showFileUploadOption)}>

@@ -1,6 +1,6 @@
 // CREATING CONTEXT API FOR COMPONENTS TO SHARE THE STATES //
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 const ChatContext = createContext()
 
 const ChatProvider = ({children}) => {
@@ -10,7 +10,7 @@ const ChatProvider = ({children}) => {
     const [chats,setChats] = useState([]) // ALL CHATS OF LOGGED USER //
     const [messages,setMessages] = useState([]) // ALL MESSAGES OF THE SELECTED CHAT
     const [notification,setNotification] = useState([]) // NOTIFY ABOUT UNREAD CHATS
-    
+    const socket = useRef(null)
     // SETTING THE USER STATE INFO //
     useEffect( () => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -23,7 +23,8 @@ const ChatProvider = ({children}) => {
                     chats,setChats,
                     groups,setGroups,
                     messages,setMessages,
-                    notification,setNotification}}
+                    notification,setNotification,
+                    socket}}
             >
               {children}
             </ChatContext.Provider>

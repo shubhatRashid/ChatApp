@@ -57,13 +57,27 @@ const io = require("socket.io")(server,{
     }
 })
 
+const onlineUsers = new Map()
+
 io.on("connection",(socket) => {
     console.log("connected to socket.io") // to check connection status
 
     // CREATING A ROOM FOR A USER //
-    socket.on('setup',(userData) =>{
-        socket.join(userData._id)
-        socket.emit('connected')
+    socket.on('setup',(userId) =>{
+        socket.join(userId)
+        onlineUsers.set(userId,socket.id)
+        io.emit('onlineusers',Array.from(onlineUsers.keys()))
+    })
+
+    socket.on('disconnect',() => {
+        for (let [userId,id] of onlineUsers){
+            if (id === socket.id){
+                onlineUsers.delete(userId)
+                console.log(userId,'disconnected from socket')
+                break
+            }
+        }
+        io.emit('onlineusers',Array.from(onlineUsers.keys()))
     })
 
     //PUT NEW MESSAGE iN RESPECTIVE SOCKET//
