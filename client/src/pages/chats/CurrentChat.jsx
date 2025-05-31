@@ -77,6 +77,9 @@ const showBrowserNotification = (message) => {
       icon: '/chaticon.png', // optional icon
     });
   }
+  else{
+    console.log('notification not supported')
+  }
 };
 
 useEffect(() => {
@@ -211,7 +214,7 @@ useEffect(() => {
           <motion.div className={`h-[65dvh] sm:h-[55dvh] flex flex-col-reverse overflow-y-auto bg-neutral-950`} {...slideAnimation('up')}>
                 <div>
                       {/* SENDER'S CHAT BUBBLE */}
-                      {messages.map((message,index) => (
+                      {messages && messages.map((message) => (
                         <ChatBubble key={message._id} message={message} position={message.sender._id===user._id?"end":"start"} />
                       ))}
                 </div>

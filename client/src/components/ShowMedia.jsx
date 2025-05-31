@@ -8,10 +8,11 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
     'audio',
   ];
 
+  console.log(mediaType,mediaUrl,mediaName)
   return (
             <div className=''>
              
-              { mediaType?.includes('image') && 
+              { mediaType.includes('image') && 
                 <div className="flex flex-col gap-1">
                   <h3 className="font-mono font-bold  text-xs sm:text-sm px-1">{mediaName}</h3>
                   <a href={mediaUrl} download={true} target="_blank">
@@ -26,7 +27,7 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
               }
 
               { 
-                mediaType?.includes('video') && 
+                mediaType.includes('video') && 
                 <div  className="flex flex-col gap-1"> 
                   <h3 className="font-mono font-bold  text-xs sm:text-sm px-1">{mediaName}</h3>
                   <video controls className="max-w-full max-h-60">
@@ -36,14 +37,14 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
               }
 
               {
-                mediaType?.includes("audio") && 
+                mediaType.includes("audio") && 
                 <audio controls >
                   <source src={mediaUrl} type={mediaType} />
                 </audio>
               }
 
               
-              {!previewMediaTypes.some((type) => mediaType?.includes(type)) && (
+              {!previewMediaTypes.some((type) => mediaType.includes(type)) && (
                 <a
                   target="_blank"
                   id="iframe"
@@ -53,7 +54,7 @@ const ShowMedia = ({mediaType,mediaUrl,mediaName}) => {
                   href={mediaUrl}
                 > 
                   <File className="text-gray-400 "/>
-                  {mediaName?.slice(0,30) + `${mediaName?.length > 30 ? "..." : ""}`}
+                  {mediaName.slice(0,30) + `${mediaName.length > 30 ? "..." : ""}`}
                 </a>
               )}
             </div>

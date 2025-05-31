@@ -41,7 +41,8 @@ const fetchCurrentChats = async(id) => {
         headers:headers
     })
     response = await response.json()
-    setMessages(response)
+    setMessages(() => response)
+    console.log(response)
  
   } catch (error) {
       toast.error(error.message,toastTheme)
@@ -51,10 +52,9 @@ const fetchCurrentChats = async(id) => {
 // FUNCTION TO SELECT A CHAT OUT OF ALL CHATS 
   const clickChat = async (chat) => {
     setNotification(notification.filter((n) => n.chat._id !== chat._id))
-
+    await fetchCurrentChats(chat._id)
     setStart(false)
     setSelectedChat(chat)
-    await fetchCurrentChats(chat._id)
     chatFun()
   }
   
