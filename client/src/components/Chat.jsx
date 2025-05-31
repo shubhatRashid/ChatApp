@@ -2,10 +2,17 @@ import React from 'react'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../configs/motion';
 import {CircleUser, CircleUserRound, User} from "lucide-react"
+import { gradient } from '../constants';
 
 const Chat = ({src,name,subText,index,count}) => {
   return (
-    <motion.div className='bg-neutral-900 flex w-[90%] rounded-lg mx-[2%] border-b border-neutral-700 shadow-md  my-[2%] relative p-1' {...slideAnimation("up",index/4)}>
+    <motion.div 
+      className={`${count > 0 && 'border-teal-500 animate-pulse'}
+                 flex w-[90%] rounded-lg mx-[2%] 
+                 border-b border-neutral-700 shadow-md  my-[2%] relative p-1`}
+                 {...slideAnimation("up",index/4)}
+      
+    >
         <div className='w-[15%] h-[15%] my-[2%] ml-[2%] '>
           <CircleUser/>
         </div>

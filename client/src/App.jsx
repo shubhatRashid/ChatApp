@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -13,7 +13,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const {user} = ChatState()
- 
+
+  useEffect(() => {
+  if ('Notification' in window && Notification.permission !== 'granted') {
+    Notification.requestPermission().then((permission) => {
+      console.log('Notification permission:', permission);
+    });
+  }
+});
+
   return (
     <BrowserRouter>
       <Routes>

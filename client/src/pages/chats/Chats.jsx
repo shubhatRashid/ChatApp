@@ -16,7 +16,7 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 const Chats = () => {
 
   // USER'S INFO //
-  const {user,setSelectedChat} = ChatState()
+  const {user,setSelectedChat,notification} = ChatState()
 
   // STATE VARIABLES
   const [searchDrawer,setSearchDrawer] = useState(false) // determines if search Drawer is visible //
@@ -24,7 +24,7 @@ const Chats = () => {
   const [seeNav,setSeeNav] = useState(false)    // determines if sidebar if visible //
   const [seeChat,setSeeChat] = useState(true)   // determines if current chat div if visible // 
   const [isStart,setStart] = useState(true)  // if it the start of the app //
-  const [clickedNotification,setClickedNotification] = useState(false) // to judge if any particular notification has been clicked
+  
   
 
 
@@ -81,7 +81,7 @@ const Chats = () => {
           {...slideAnimation('left',0.1)}>
             <UserProfile user={user} showSidebar={showSidebar}/>
             <Groups  setStart = {setStart} chatFun={chatFun}/>
-            <ChatList chatFun={chatFun} setStart= {setStart} clickedNotification={clickedNotification} setClickedNotification={setClickedNotification}/>
+            <ChatList chatFun={chatFun} setStart= {setStart}/>
 
         </motion.div>
 
@@ -90,8 +90,7 @@ const Chats = () => {
           isStart={isStart} 
           showSidebar={showSidebar} 
           usersDiv={usersDiv} 
-          seeChat={seeChat} 
-          setClickedNotification={setClickedNotification} 
+          seeChat={seeChat}
         />
     </div>
   )

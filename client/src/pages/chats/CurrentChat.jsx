@@ -18,15 +18,15 @@ const gradient = "bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% 
 const ENDPOINT = process.env.REACT_APP_SERVER_PORT
 var selectedChatCompare;
 
-const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart,setClickedNotification}) => {
+const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart}) => {
   const {user,selectedChat,setSelectedChat,messages,setMessages,notification,setNotification,socket} = ChatState()
   const [showUpdateDiv,setShowUpdateDiv] = useState(false)
   const [newMessage,setNewMessage] = useState("")
   const [socketConnected,setSocketConnected] = useState(false)
-  const [showNotification,setShowNotification] = useState(false)
   const [showFileUploadOption,setShowFileUploadOption] = useState(false)
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [online, setOnline] = useState(false);
+  const [typing,setTyping] = useState(false)
   
 
   // CODE TO SETUP SOCKET.IO
@@ -40,9 +40,21 @@ useEffect(() => {
 
   socket.current.on("onlineusers", (users) => {
     setOnlineUsers(() => users); // triggers update
-    console.log(users)
   });
 },[selectedChat]);
+
+useEffect(() => {
+  socket.current.on('typing',(userId) => {
+    setTyping(true)
+    setTimeout(() => {
+      setTyping(false)
+    }, 2000);
+
+    return () => {
+      socket.off('typing')
+      setTyping(false)}
+  })
+},[])
 
 useEffect(() => {
   if (!selectedChat || onlineUsers.length === 0) return;
@@ -55,24 +67,27 @@ useEffect(() => {
   setOnline(onlineUsers.includes(oppositeId));
 }, [selectedChat, onlineUsers]); 
 
-  // GIVE NOTIFICATION OR DISPLAY MESSAGE
-  useEffect(() => {
+// DISPLAY NEW MESSAGE AND NOTIFICATIONS
+
+
+const showBrowserNotification = (message) => {
+  if (Notification.permission === 'granted') {
+    new Notification(`New message from ${message.sender.name}`, {
+      body: message.content,
+      icon: '/chaticon.png', // optional icon
+    });
+  }
+};
+
+useEffect(() => {
 
     socket.current.on("message received",(newMessageReceived) => {
       if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
         // give notification
         if (!notification.includes(newMessageReceived)){
 
-          new Audio(notify).play()
-            .catch(error => {
-                console.info('User has not interacted with document yet.');
-            });
-
-          setNotification([...notification,newMessageReceived])
-          setShowNotification(true)
-          setTimeout(() => {
-            setShowNotification(false)
-            },2000)
+          setNotification([...notification,newMessageReceived])  
+          showBrowserNotification(newMessageReceived)
         }
 
       }else{
@@ -87,6 +102,11 @@ useEffect(() => {
   // FUNCTION TO HANDLE CHANGE IN REPLY INPUT //
   const handleChange = (e) => {
     setNewMessage(e.target.value)
+    const oppositeId =
+    selectedChat.users[0]._id === user._id
+      ? selectedChat.users[1]._id
+      : selectedChat.users[0]._id;
+    socket.current.emit('typing',oppositeId)
   }
 
   // FUNCTION TO SEND A NEW MESSAGE TO DATABASE
@@ -128,14 +148,6 @@ useEffect(() => {
     sendMessage()
     setNewMessage("")
   }
-
-  // FUNCTION FOR NOTIFICATION CLICK //
-  const clickNotif = (notification) => {
-    setSelectedChat(notification.chat)
-    setShowNotification(!showNotification)
-    setNotification([])
-    setClickedNotification(true)
-  }
   
   return (
     selectedChat ?
@@ -164,9 +176,18 @@ useEffect(() => {
                     {online  ? 
                       <div className='flex ml-[10%] gap-1'>
                         <p className='flex justify-center items-center text-teal-500 text-[8px]'>o</p>
-                        <p className='text-xs text-neutral-200 animate-pulse'>
-                          online
-                        </p>
+
+                        {
+                          typing ? 
+                          <p className='text-xs text-neutral-200 animate-pulse'>
+                            typing...
+                          </p>
+                          :
+                          <p className='text-xs text-neutral-200 animate-pulse'>
+                            online
+                          </p>
+                        }
+                        
                       </div>
                       : 
                       <div className='flex ml-[10%]'>

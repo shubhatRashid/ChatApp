@@ -7,7 +7,7 @@ import ChatsLoader from '../../loaders/ChatsLoader';
 
 // VARIABLES FOR SOCKET CONNECTION //
 
-const ChatList = ({chatFun,setStart,clickedNotification,setClickedNotification}) => {
+const ChatList = ({chatFun,setStart}) => {
   const {chats,user,setChats,selectedChat,setSelectedChat,setMessages,notification,setNotification} = ChatState() //get the required states from context api // 
   const [loading,setLoading] = useState(true)
 
@@ -72,12 +72,8 @@ const fetchCurrentChats = async(id) => {
   }
   
   useEffect(() =>{
-    if (clickedNotification){
-      clickChat(selectedChat)
-      setClickedNotification(false)
-    }
     fetchChats()
-  },[clickedNotification])
+  },[])
 
 
   return (
