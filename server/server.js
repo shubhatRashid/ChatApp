@@ -53,8 +53,10 @@ const server = app.listen(
 // SETTING UP SOCKET.IO //
 const io = require("socket.io")(server,{
     cors:{
-        origin:process.env.CLIENT_URL
-    }
+        origin:process.env.CLIENT_URL,
+        methods: ["GET", "POST"],
+    },
+    path: '/socket.io'
 })
 
 const onlineUsers = new Map()

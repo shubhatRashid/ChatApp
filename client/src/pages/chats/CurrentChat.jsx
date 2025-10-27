@@ -33,7 +33,10 @@ const CurrentChat = ({showSidebar,usersDiv,seeChat,isStart}) => {
 
 useEffect(() => {
   selectedChatCompare = selectedChat
-  socket.current = io(ENDPOINT);
+  socket.current = io(ENDPOINT, {
+    path: "/socket.io",
+    transports: ["websocket", "polling"],
+  });
   socket.current.emit("setup", user._id);
 
   socket.current.on("connected", () => setSocketConnected(true));
