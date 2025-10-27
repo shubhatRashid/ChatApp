@@ -61,6 +61,10 @@ const io = require("socket.io")(server,{
 
 const onlineUsers = new Map()
 
+io.engine.on("connection_error", (err) => {
+  console.log("connection_error", err.code, err.message);
+});
+
 io.on("connection",(socket) => {
     console.log("connected to socket.io") // to check connection status
 
