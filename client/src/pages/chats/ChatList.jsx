@@ -4,6 +4,7 @@ import { ChatState } from '../../context/ChatProvider';
 import { toast } from 'react-toastify';
 import { fetchChatName, toastTheme} from "../../constants"
 import ChatsLoader from '../../loaders/ChatsLoader';
+import { Bot } from 'lucide-react';
 
 // VARIABLES FOR SOCKET CONNECTION //
 
@@ -85,9 +86,17 @@ const fetchCurrentChats = async(id) => {
 
         {/*ALL CHATS OF LOGGED IN USER*/}
         <div className='flex flex-col overflow-y-scroll gap-2'>
+          <button onClick = {() => {}} >
+            <Chat 
+            name = "Bot"
+            subText = 'Ask ai anything...'
+            src={<Bot/>}
+            />
+          </button>
+            
           {loading?<ChatsLoader/>:chats.map((chat,index) => (
             <button onClick = {() => clickChat(chat)} key={chat._id}>
-              <Chat src={chat.users[1].name === user.name? chat.users[0].pic:chat.users[1].pic }
+              <Chat 
               name={fetchChatName(chat,user)} 
               subText = {chat.latestMessage?chat.latestMessage.content:" "}
               index = {index}

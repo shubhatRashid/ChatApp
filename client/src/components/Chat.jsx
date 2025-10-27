@@ -1,7 +1,7 @@
 import React from 'react'
 import {motion} from "framer-motion"
 import { slideAnimation } from '../configs/motion';
-import {CircleUser, CircleUserRound, User} from "lucide-react"
+import {Bot, CircleUser, CircleUserRound, User} from "lucide-react"
 import { gradient } from '../constants';
 
 const Chat = ({src,name,subText,index,count}) => {
@@ -14,7 +14,7 @@ const Chat = ({src,name,subText,index,count}) => {
       
     >
         <div className='w-[15%] h-[15%] my-[2%] ml-[2%] '>
-          <CircleUser/>
+          {src ? src :<CircleUser/>}
         </div>
         <div className='font-sans flex flex-col items-start  my-auto ml-[3%]'>
             <h2 className=' text-sm capitalize'>{name}</h2>
